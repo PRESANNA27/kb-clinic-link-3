@@ -1,0 +1,1441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KB Clinic – Towards Excellence In Health Care</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&family=Space+Grotesk:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root {
+  --sky: #00B4D8;
+  --sky-light: #90E0EF;
+  --sky-pale: #CAF0F8;
+  --teal: #00C9A7;
+  --teal-light: #4DDFC4;
+  --cobalt: #0077B6;
+  --cobalt-deep: #023E8A;
+  --white: #FFFFFF;
+  --off-white: #F7FBFF;
+  --soft-gray: #EEF6FA;
+  --mid-gray: #A8BCCF;
+  --text-main: #1A2F45;
+  --text-sub: #4A6070;
+  --accent-gold: #FFD166;
+  --accent-coral: #FF6B6B;
+  --gradient-hero: linear-gradient(135deg, #0077B6 0%, #00B4D8 40%, #00C9A7 100%);
+  --gradient-card: linear-gradient(145deg, rgba(255,255,255,0.95) 0%, rgba(202,240,248,0.3) 100%);
+  --shadow-card: 0 20px 60px rgba(0,119,182,0.12), 0 4px 16px rgba(0,180,216,0.08);
+  --shadow-hover: 0 32px 80px rgba(0,119,182,0.22), 0 8px 24px rgba(0,180,216,0.14);
+  --radius: 20px;
+  --radius-lg: 32px;
+  --radius-xl: 48px;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--white);
+  color: var(--text-main);
+  overflow-x: hidden;
+}
+
+/* ===== CUSTOM CURSOR ===== */
+.cursor { position:fixed; width:12px; height:12px; background:var(--sky); border-radius:50%; pointer-events:none; z-index:9999; transform:translate(-50%,-50%); transition:transform 0.1s; mix-blend-mode:multiply; }
+.cursor-ring { position:fixed; width:36px; height:36px; border:2px solid var(--cobalt); border-radius:50%; pointer-events:none; z-index:9998; transform:translate(-50%,-50%); transition:all 0.15s ease; }
+
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar { width:6px; }
+::-webkit-scrollbar-track { background:var(--soft-gray); }
+::-webkit-scrollbar-thumb { background:var(--gradient-hero); border-radius:10px; }
+
+/* ===== NAV ===== */
+nav {
+  position:fixed; top:0; width:100%; z-index:1000;
+  padding:0 5%;
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(0,180,216,0.12);
+  transition: all 0.4s ease;
+  display:flex; align-items:center; justify-content:space-between; height:72px;
+}
+nav.scrolled {
+  height:60px;
+  box-shadow: 0 8px 40px rgba(0,119,182,0.12);
+}
+.nav-logo { display:flex; align-items:center; gap:12px; text-decoration:none; }
+.nav-logo img { height:44px; object-fit:contain; }
+.nav-logo-text { display:flex; flex-direction:column; }
+.nav-logo-text span:first-child { font-family:'Playfair Display',serif; font-size:1.3rem; font-weight:700; color:var(--cobalt); line-height:1; }
+.nav-logo-text span:last-child { font-size:0.62rem; color:var(--sky); font-weight:500; letter-spacing:0.08em; text-transform:uppercase; }
+.nav-links { display:flex; align-items:center; gap:8px; }
+.nav-links a {
+  text-decoration:none; color:var(--text-sub); font-size:0.88rem; font-weight:500;
+  padding:7px 14px; border-radius:50px; transition:all 0.3s ease; position:relative;
+}
+.nav-links a::after {
+  content:''; position:absolute; bottom:2px; left:50%; transform:translateX(-50%);
+  width:0; height:2px; background:var(--sky); border-radius:2px; transition:width 0.3s;
+}
+.nav-links a:hover { color:var(--cobalt); background:rgba(0,180,216,0.07); }
+.nav-links a:hover::after { width:60%; }
+.nav-cta {
+  background:var(--gradient-hero); color:var(--white) !important;
+  padding:9px 22px !important; border-radius:50px !important; font-weight:600 !important;
+  box-shadow: 0 4px 20px rgba(0,119,182,0.35); letter-spacing:0.02em;
+  transition: all 0.3s ease !important;
+}
+.nav-cta:hover { transform:translateY(-2px); box-shadow: 0 8px 28px rgba(0,119,182,0.45) !important; }
+.nav-cta::after { display:none !important; }
+.hamburger { display:none; flex-direction:column; gap:5px; cursor:pointer; padding:8px; }
+.hamburger span { width:24px; height:2px; background:var(--cobalt); border-radius:2px; transition:all 0.3s; }
+.mobile-menu {
+  display:none; position:fixed; top:72px; left:0; right:0;
+  background:rgba(255,255,255,0.97); backdrop-filter:blur(20px);
+  padding:24px 5%; flex-direction:column; gap:8px; border-bottom:1px solid rgba(0,180,216,0.12);
+  z-index:999; box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+}
+.mobile-menu a { color:var(--text-main); text-decoration:none; font-size:1rem; font-weight:500; padding:12px 16px; border-radius:12px; transition:all 0.2s; }
+.mobile-menu a:hover { background:rgba(0,180,216,0.08); color:var(--cobalt); }
+.mobile-menu.open { display:flex; }
+
+/* ===== HERO ===== */
+#home {
+  min-height:100vh; position:relative; overflow:hidden;
+  display:flex; align-items:center;
+  background: linear-gradient(150deg, #f0f9ff 0%, #e0f4fd 30%, #caf0f8 60%, #d0f5ee 100%);
+}
+.hero-shapes { position:absolute; inset:0; overflow:hidden; pointer-events:none; }
+.hero-shape {
+  position:absolute; border-radius:50%; opacity:0.18;
+  animation: floatShape 8s ease-in-out infinite;
+}
+.hs1 { width:500px; height:500px; background:radial-gradient(circle,var(--sky),transparent); top:-100px; right:-100px; animation-delay:0s; }
+.hs2 { width:350px; height:350px; background:radial-gradient(circle,var(--teal),transparent); bottom:-80px; left:-80px; animation-delay:2s; }
+.hs3 { width:220px; height:220px; background:radial-gradient(circle,var(--cobalt),transparent); top:30%; left:15%; animation-delay:4s; }
+.hs4 { width:160px; height:160px; background:radial-gradient(circle,var(--accent-gold),transparent); opacity:0.12; bottom:20%; right:20%; animation-delay:1s; }
+@keyframes floatShape { 0%,100%{transform:translateY(0) scale(1);} 50%{transform:translateY(-30px) scale(1.05);} }
+
+.hero-grid { display:grid; grid-template-columns:1fr 1fr; gap:40px; align-items:center; max-width:1280px; margin:0 auto; padding:120px 5% 80px; width:100%; position:relative; z-index:2; }
+.hero-badge {
+  display:inline-flex; align-items:center; gap:8px;
+  background:rgba(0,201,167,0.12); border:1px solid rgba(0,201,167,0.3);
+  color:var(--teal); padding:6px 16px; border-radius:50px; font-size:0.78rem; font-weight:600;
+  letter-spacing:0.06em; text-transform:uppercase; margin-bottom:20px;
+  animation: fadeSlideUp 0.8s ease forwards;
+}
+.iso-badge { display:inline-flex; align-items:center; gap:6px; background:rgba(0,119,182,0.08); border:1px solid rgba(0,119,182,0.2); color:var(--cobalt); padding:5px 12px; border-radius:50px; font-size:0.72rem; font-weight:600; letter-spacing:0.04em; margin-left:8px; }
+.hero-title {
+  font-family:'Playfair Display',serif; font-size:clamp(2.4rem,4.5vw,3.8rem); line-height:1.12;
+  color:var(--cobalt-deep); margin-bottom:12px; font-weight:900;
+  animation: fadeSlideUp 0.8s ease 0.15s both;
+}
+.hero-title span { background:var(--gradient-hero); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+.hero-tagline {
+  font-size:clamp(0.95rem,1.8vw,1.15rem); color:var(--text-sub); line-height:1.65;
+  margin-bottom:32px; font-weight:400; max-width:480px;
+  animation: fadeSlideUp 0.8s ease 0.3s both;
+}
+.hero-stats {
+  display:flex; gap:28px; margin-bottom:36px;
+  animation: fadeSlideUp 0.8s ease 0.45s both;
+}
+.stat-pill { text-align:center; }
+.stat-num { font-family:'Playfair Display',serif; font-size:1.9rem; font-weight:900; color:var(--cobalt); display:block; line-height:1; }
+.stat-lbl { font-size:0.72rem; color:var(--text-sub); font-weight:500; text-transform:uppercase; letter-spacing:0.06em; display:block; margin-top:3px; }
+.stat-sep { width:1px; background:linear-gradient(180deg,transparent,rgba(0,119,182,0.2),transparent); }
+.hero-actions {
+  display:flex; gap:14px; flex-wrap:wrap;
+  animation: fadeSlideUp 0.8s ease 0.6s both;
+}
+.btn-primary {
+  background:var(--gradient-hero); color:var(--white); text-decoration:none;
+  padding:14px 32px; border-radius:50px; font-weight:600; font-size:0.95rem;
+  box-shadow: 0 8px 32px rgba(0,119,182,0.38); border:none; cursor:pointer;
+  transition:all 0.35s ease; display:inline-flex; align-items:center; gap:8px;
+  letter-spacing:0.02em; position:relative; overflow:hidden;
+}
+.btn-primary::before {
+  content:''; position:absolute; inset:0; background:linear-gradient(135deg,rgba(255,255,255,0.25),transparent);
+  border-radius:50px; opacity:0; transition:opacity 0.3s;
+}
+.btn-primary:hover { transform:translateY(-3px); box-shadow:0 16px 44px rgba(0,119,182,0.48); }
+.btn-primary:hover::before { opacity:1; }
+.btn-secondary {
+  background:rgba(255,255,255,0.8); color:var(--cobalt); text-decoration:none;
+  padding:14px 28px; border-radius:50px; font-weight:600; font-size:0.95rem;
+  border:2px solid rgba(0,119,182,0.2); cursor:pointer;
+  transition:all 0.35s ease; display:inline-flex; align-items:center; gap:8px;
+  backdrop-filter:blur(10px);
+}
+.btn-secondary:hover { background:var(--white); border-color:var(--sky); transform:translateY(-2px); box-shadow:0 8px 28px rgba(0,119,182,0.15); }
+
+.hero-visual { position:relative; animation: fadeSlideRight 1s ease 0.2s both; }
+.hero-card-main {
+  background:var(--white); border-radius:var(--radius-lg); overflow:hidden;
+  box-shadow:var(--shadow-card); position:relative;
+}
+.hero-card-main img { width:100%; height:360px; object-fit:cover; display:block; }
+.hero-card-overlay {
+  position:absolute; bottom:0; left:0; right:0;
+  background:linear-gradient(transparent, rgba(2,62,138,0.88));
+  padding:32px 24px 24px;
+}
+.hero-card-overlay h3 { color:var(--white); font-family:'Playfair Display',serif; font-size:1.2rem; margin-bottom:4px; }
+.hero-card-overlay p { color:rgba(255,255,255,0.78); font-size:0.8rem; }
+.hero-float-badge {
+  position:absolute; top:-16px; right:-16px;
+  background:var(--white); border-radius:16px; padding:14px 18px;
+  box-shadow:var(--shadow-card); text-align:center; animation:floatBadge 3s ease-in-out infinite;
+}
+.hero-float-badge .big { font-family:'Playfair Display',serif; font-size:1.6rem; font-weight:900; color:var(--cobalt); display:block; }
+.hero-float-badge .sm { font-size:0.68rem; color:var(--text-sub); font-weight:600; text-transform:uppercase; letter-spacing:0.06em; }
+.hero-float-badge2 {
+  position:absolute; bottom:-16px; left:-16px;
+  background:var(--gradient-hero); border-radius:14px; padding:12px 16px;
+  box-shadow:0 8px 32px rgba(0,119,182,0.35); animation:floatBadge 3s ease-in-out 1.5s infinite;
+  display:flex; align-items:center; gap:10px;
+}
+.hero-float-badge2 i { color:var(--white); font-size:1.3rem; }
+.hero-float-badge2 span { color:var(--white); font-size:0.78rem; font-weight:600; }
+@keyframes floatBadge { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-8px);} }
+@keyframes fadeSlideUp { from{opacity:0;transform:translateY(30px);} to{opacity:1;transform:translateY(0);} }
+@keyframes fadeSlideRight { from{opacity:0;transform:translateX(40px);} to{opacity:1;transform:translateX(0);} }
+
+/* ===== MARQUEE STRIP ===== */
+.marquee-strip {
+  background:var(--gradient-hero); padding:14px 0; overflow:hidden; position:relative;
+}
+.marquee-inner { display:flex; gap:0; animation: marquee 28s linear infinite; white-space:nowrap; }
+.marquee-inner:hover { animation-play-state:paused; }
+.marquee-item { display:inline-flex; align-items:center; gap:10px; padding:0 32px; color:rgba(255,255,255,0.9); font-size:0.83rem; font-weight:500; letter-spacing:0.04em; }
+.marquee-item i { color:var(--accent-gold); font-size:0.9rem; }
+@keyframes marquee { from{transform:translateX(0);} to{transform:translateX(-50%);} }
+
+/* ===== SECTION BASE ===== */
+section { padding:96px 5%; }
+.section-header { text-align:center; margin-bottom:64px; }
+.section-tag {
+  display:inline-block; background:rgba(0,180,216,0.1); color:var(--sky);
+  padding:5px 16px; border-radius:50px; font-size:0.75rem; font-weight:600;
+  letter-spacing:0.08em; text-transform:uppercase; margin-bottom:14px;
+  border:1px solid rgba(0,180,216,0.2);
+}
+.section-title { font-family:'Playfair Display',serif; font-size:clamp(1.9rem,3.5vw,2.8rem); color:var(--cobalt-deep); font-weight:900; margin-bottom:14px; line-height:1.2; }
+.section-subtitle { color:var(--text-sub); font-size:1rem; max-width:560px; margin:0 auto; line-height:1.7; }
+.section-line { width:60px; height:3px; background:var(--gradient-hero); border-radius:3px; margin:20px auto 0; }
+
+/* ===== ABOUT / DOCTORS ===== */
+#doctors { background:var(--off-white); position:relative; overflow:hidden; }
+#doctors::before {
+  content:''; position:absolute; top:0; right:0;
+  width:400px; height:400px; background:radial-gradient(circle,rgba(0,180,216,0.06),transparent);
+  border-radius:50%; transform:translate(100px,-100px);
+}
+.doctors-grid { display:grid; grid-template-columns:1fr 1fr; gap:32px; max-width:1100px; margin:0 auto; }
+.doctor-card {
+  background:var(--white); border-radius:var(--radius-lg); overflow:hidden;
+  box-shadow:var(--shadow-card); transition:all 0.5s cubic-bezier(0.23,1,0.32,1);
+  cursor:pointer; position:relative;
+}
+.doctor-card:hover { transform:translateY(-12px) scale(1.01); box-shadow:var(--shadow-hover); }
+.doctor-card-img { position:relative; overflow:hidden; height:280px; }
+.doctor-card-img img { width:100%; height:100%; object-fit:cover; object-position:top; transition:transform 0.6s ease; }
+.doctor-card:hover .doctor-card-img img { transform:scale(1.07); }
+.doctor-card-img-overlay {
+  position:absolute; inset:0; background:linear-gradient(transparent 40%, rgba(2,62,138,0.7));
+}
+.doctor-reg { position:absolute; top:16px; right:16px; background:rgba(255,255,255,0.92); backdrop-filter:blur(10px); padding:6px 12px; border-radius:50px; font-size:0.72rem; font-weight:600; color:var(--cobalt); }
+.doctor-card-body { padding:28px; position:relative; }
+.doctor-name { font-family:'Playfair Display',serif; font-size:1.3rem; font-weight:700; color:var(--cobalt-deep); margin-bottom:4px; }
+.doctor-degree { color:var(--sky); font-size:0.82rem; font-weight:600; margin-bottom:8px; }
+.doctor-spec { color:var(--text-sub); font-size:0.88rem; line-height:1.5; margin-bottom:16px; }
+.doctor-exp-tags { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:16px; }
+.exp-tag { background:rgba(0,180,216,0.08); color:var(--cobalt); font-size:0.72rem; font-weight:600; padding:4px 10px; border-radius:50px; border:1px solid rgba(0,180,216,0.15); }
+.doctor-expand-btn {
+  display:inline-flex; align-items:center; gap:6px;
+  background:var(--gradient-hero); color:var(--white); border:none; cursor:pointer;
+  padding:9px 20px; border-radius:50px; font-size:0.82rem; font-weight:600;
+  transition:all 0.3s; box-shadow:0 4px 16px rgba(0,119,182,0.3);
+}
+.doctor-expand-btn:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(0,119,182,0.4); }
+
+/* DOCTOR MODAL */
+.modal-overlay {
+  position:fixed; inset:0; background:rgba(2,62,138,0.6); backdrop-filter:blur(8px);
+  z-index:2000; opacity:0; pointer-events:none; transition:opacity 0.4s ease;
+  display:flex; align-items:center; justify-content:center; padding:20px;
+}
+.modal-overlay.active { opacity:1; pointer-events:all; }
+.doctor-modal {
+  background:var(--white); border-radius:var(--radius-lg); max-width:760px; width:100%;
+  max-height:90vh; overflow-y:auto; position:relative;
+  transform:scale(0.88) translateY(30px); transition:all 0.4s cubic-bezier(0.23,1,0.32,1);
+  box-shadow:0 40px 100px rgba(0,0,0,0.2);
+}
+.modal-overlay.active .doctor-modal { transform:scale(1) translateY(0); }
+.modal-header { position:relative; height:240px; overflow:hidden; }
+.modal-header img { width:100%; height:100%; object-fit:cover; object-position:top; }
+.modal-header-overlay { position:absolute; inset:0; background:linear-gradient(transparent 30%, rgba(2,62,138,0.85)); }
+.modal-header-info { position:absolute; bottom:24px; left:28px; right:60px; }
+.modal-header-info h2 { font-family:'Playfair Display',serif; font-size:1.6rem; color:var(--white); font-weight:700; }
+.modal-header-info p { color:rgba(255,255,255,0.85); font-size:0.85rem; margin-top:4px; }
+.modal-close { position:absolute; top:16px; right:16px; background:rgba(255,255,255,0.9); border:none; cursor:pointer; width:36px; height:36px; border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--cobalt); font-size:1.1rem; transition:all 0.2s; z-index:10; }
+.modal-close:hover { background:var(--white); transform:scale(1.1); }
+.modal-body { padding:32px; }
+.modal-section-title { font-family:'Playfair Display',serif; font-size:1.05rem; color:var(--cobalt); font-weight:700; margin-bottom:12px; display:flex; align-items:center; gap:8px; }
+.modal-section-title i { color:var(--sky); }
+.modal-info-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:24px; }
+.modal-info-item { background:var(--soft-gray); border-radius:12px; padding:14px 16px; }
+.modal-info-item .lbl { font-size:0.72rem; color:var(--text-sub); font-weight:600; text-transform:uppercase; letter-spacing:0.06em; margin-bottom:4px; }
+.modal-info-item .val { font-size:0.9rem; color:var(--text-main); font-weight:600; }
+.modal-desc { color:var(--text-sub); line-height:1.75; font-size:0.92rem; margin-bottom:24px; }
+.modal-skills { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:24px; }
+.modal-skill { background:rgba(0,180,216,0.08); color:var(--cobalt); padding:6px 14px; border-radius:50px; font-size:0.78rem; font-weight:600; border:1px solid rgba(0,180,216,0.15); }
+.modal-appt-btn { width:100%; background:var(--gradient-hero); color:var(--white); border:none; padding:14px; border-radius:14px; font-size:1rem; font-weight:600; cursor:pointer; transition:all 0.3s; box-shadow:0 4px 20px rgba(0,119,182,0.35); }
+.modal-appt-btn:hover { transform:translateY(-2px); box-shadow:0 10px 32px rgba(0,119,182,0.45); }
+
+/* ===== SERVICES ===== */
+#services { background:var(--white); }
+.services-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:20px; max-width:1200px; margin:0 auto; }
+.service-card {
+  border-radius:var(--radius); overflow:hidden; cursor:pointer; position:relative;
+  background:var(--white); box-shadow:var(--shadow-card);
+  transition:all 0.5s cubic-bezier(0.23,1,0.32,1);
+  border:1px solid rgba(0,180,216,0.08);
+}
+.service-card:hover { transform:translateY(-10px) scale(1.01); box-shadow:var(--shadow-hover); }
+.service-card-img { height:200px; overflow:hidden; position:relative; }
+.service-card-img img { width:100%; height:100%; object-fit:cover; transition:transform 0.6s ease; }
+.service-card:hover .service-card-img img { transform:scale(1.1); }
+.service-card-img::after { content:''; position:absolute; inset:0; background:linear-gradient(transparent 50%, rgba(0,55,100,0.6)); }
+.service-icon { position:absolute; top:14px; left:14px; width:42px; height:42px; background:rgba(255,255,255,0.92); backdrop-filter:blur(8px); border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:1.1rem; z-index:2; transition:all 0.3s; }
+.service-card:hover .service-icon { background:var(--gradient-hero); color:var(--white); }
+.service-card-body { padding:18px; }
+.service-name { font-weight:700; font-size:0.92rem; color:var(--cobalt-deep); margin-bottom:6px; }
+.service-brief { font-size:0.78rem; color:var(--text-sub); line-height:1.55; margin-bottom:12px; }
+.service-learn-btn { font-size:0.78rem; font-weight:600; color:var(--sky); display:flex; align-items:center; gap:4px; transition:gap 0.2s; cursor:pointer; background:none; border:none; padding:0; }
+.service-card:hover .service-learn-btn { gap:8px; }
+
+/* SERVICE MODAL */
+.service-modal-body { padding:32px; }
+.service-modal-img { width:100%; height:220px; object-fit:cover; border-radius:var(--radius); margin-bottom:24px; }
+.service-detail-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:24px; }
+.service-detail-item { background:linear-gradient(135deg,rgba(0,180,216,0.05),rgba(0,201,167,0.05)); border:1px solid rgba(0,180,216,0.12); border-radius:14px; padding:16px; }
+.service-detail-item h4 { font-size:0.78rem; color:var(--sky); font-weight:600; text-transform:uppercase; letter-spacing:0.06em; margin-bottom:6px; }
+.service-detail-item p { font-size:0.85rem; color:var(--text-sub); line-height:1.55; }
+.cause-list { list-style:none; margin-bottom:24px; }
+.cause-list li { display:flex; align-items:flex-start; gap:10px; padding:8px 0; border-bottom:1px solid rgba(0,180,216,0.07); font-size:0.88rem; color:var(--text-sub); }
+.cause-list li::before { content:''; width:8px; height:8px; background:var(--sky); border-radius:50%; margin-top:6px; flex-shrink:0; }
+.trust-box { background:linear-gradient(135deg,rgba(0,180,216,0.06),rgba(0,201,167,0.06)); border:1px solid rgba(0,180,216,0.15); border-radius:16px; padding:20px; margin-bottom:24px; }
+.trust-box h4 { font-family:'Playfair Display',serif; font-size:1rem; color:var(--cobalt); margin-bottom:10px; }
+.trust-box p { font-size:0.87rem; color:var(--text-sub); line-height:1.65; }
+
+/* ===== FACILITIES ===== */
+#facilities { background:linear-gradient(135deg,#f0f9ff,#e8f8f4); position:relative; overflow:hidden; }
+.facilities-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; max-width:1100px; margin:0 auto; }
+.facility-card {
+  background:var(--white); border-radius:var(--radius); overflow:hidden;
+  box-shadow:var(--shadow-card); cursor:pointer; transition:all 0.4s cubic-bezier(0.23,1,0.32,1);
+  border:1px solid rgba(0,180,216,0.08);
+}
+.facility-card:hover { transform:translateY(-8px); box-shadow:var(--shadow-hover); }
+.facility-card-img { height:180px; overflow:hidden; position:relative; }
+.facility-card-img img { width:100%; height:100%; object-fit:cover; transition:transform 0.5s; }
+.facility-card:hover .facility-card-img img { transform:scale(1.08); }
+.facility-card-body { padding:20px; }
+.facility-icon-row { display:flex; align-items:center; gap:10px; margin-bottom:10px; }
+.facility-icon-wrap { width:38px; height:38px; background:var(--gradient-hero); border-radius:10px; display:flex; align-items:center; justify-content:center; }
+.facility-icon-wrap i { color:var(--white); font-size:0.95rem; }
+.facility-name { font-weight:700; font-size:0.95rem; color:var(--cobalt-deep); }
+.facility-desc { font-size:0.8rem; color:var(--text-sub); line-height:1.6; margin-bottom:12px; }
+.facility-tag { background:rgba(0,180,216,0.08); color:var(--sky); font-size:0.7rem; font-weight:600; padding:3px 10px; border-radius:50px; display:inline-block; }
+
+/* FACILITY MODAL */
+.facility-modal-body { padding:32px; }
+.facility-procedure { margin-bottom:20px; }
+.facility-procedure h4 { font-family:'Playfair Display',serif; font-size:1rem; color:var(--cobalt); margin-bottom:12px; }
+.procedure-steps { list-style:none; }
+.procedure-steps li { display:flex; gap:14px; padding:10px 0; border-bottom:1px solid rgba(0,180,216,0.08); }
+.step-num { width:26px; height:26px; background:var(--gradient-hero); color:var(--white); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:0.72rem; font-weight:700; flex-shrink:0; }
+.step-text { font-size:0.87rem; color:var(--text-sub); line-height:1.55; padding-top:4px; }
+
+/* ===== REVIEWS ===== */
+#reviews { background:var(--off-white); overflow:hidden; }
+.reviews-track-wrap { overflow:hidden; position:relative; }
+.reviews-track-wrap::before, .reviews-track-wrap::after {
+  content:''; position:absolute; top:0; bottom:0; width:80px; z-index:2; pointer-events:none;
+}
+.reviews-track-wrap::before { left:0; background:linear-gradient(90deg,var(--off-white),transparent); }
+.reviews-track-wrap::after { right:0; background:linear-gradient(-90deg,var(--off-white),transparent); }
+.reviews-track { display:flex; gap:24px; animation:scrollReviews 30s linear infinite; width:max-content; padding:12px 0; }
+.reviews-track:hover { animation-play-state:paused; }
+@keyframes scrollReviews { from{transform:translateX(0);} to{transform:translateX(-50%);} }
+.review-card {
+  background:var(--white); border-radius:var(--radius); padding:24px; width:300px; flex-shrink:0;
+  box-shadow:var(--shadow-card); border:1px solid rgba(0,180,216,0.08);
+  transition:transform 0.3s;
+}
+.review-card:hover { transform:translateY(-4px); }
+.review-stars { color:var(--accent-gold); font-size:0.9rem; margin-bottom:10px; letter-spacing:2px; }
+.review-text { font-size:0.87rem; color:var(--text-sub); line-height:1.65; margin-bottom:14px; font-style:italic; }
+.review-author { display:flex; align-items:center; gap:10px; }
+.review-avatar { width:38px; height:38px; border-radius:50%; object-fit:cover; border:2px solid var(--sky-pale); }
+.review-name { font-weight:600; font-size:0.85rem; color:var(--text-main); }
+.review-date { font-size:0.72rem; color:var(--mid-gray); }
+
+/* ===== GALLERY ===== */
+#gallery { background:var(--white); }
+.gallery-grid { display:grid; grid-template-columns:repeat(4,1fr); grid-auto-rows:200px; gap:16px; max-width:1200px; margin:0 auto; }
+.gallery-item { border-radius:var(--radius); overflow:hidden; position:relative; cursor:pointer; }
+.gallery-item img { width:100%; height:100%; object-fit:cover; transition:transform 0.5s ease; }
+.gallery-item:hover img { transform:scale(1.08); }
+.gallery-item.tall { grid-row:span 2; }
+.gallery-item.wide { grid-column:span 2; }
+.gallery-item-overlay { position:absolute; inset:0; background:linear-gradient(transparent 40%,rgba(2,62,138,0.6)); opacity:0; transition:opacity 0.3s; display:flex; align-items:flex-end; padding:16px; }
+.gallery-item:hover .gallery-item-overlay { opacity:1; }
+.gallery-label { color:var(--white); font-size:0.82rem; font-weight:600; }
+
+/* ===== CONTACT ===== */
+#contact { background:linear-gradient(135deg,#f0f9ff,#e0f4fd); }
+.contact-wrapper { display:grid; grid-template-columns:1fr 1fr; gap:48px; max-width:1100px; margin:0 auto; align-items:start; }
+.contact-info { }
+.contact-info-card { background:var(--white); border-radius:var(--radius); padding:28px; margin-bottom:20px; box-shadow:var(--shadow-card); }
+.contact-info-item { display:flex; gap:16px; margin-bottom:20px; }
+.contact-info-item:last-child { margin-bottom:0; }
+.contact-icon-wrap { width:46px; height:46px; background:var(--gradient-hero); border-radius:12px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.contact-icon-wrap i { color:var(--white); font-size:1.1rem; }
+.contact-info-text h4 { font-weight:700; font-size:0.92rem; color:var(--cobalt-deep); margin-bottom:4px; }
+.contact-info-text p, .contact-info-text a { font-size:0.85rem; color:var(--text-sub); line-height:1.6; text-decoration:none; }
+.contact-info-text a:hover { color:var(--sky); }
+.map-container { border-radius:var(--radius); overflow:hidden; height:220px; box-shadow:var(--shadow-card); }
+.map-container iframe { width:100%; height:100%; border:none; }
+
+.contact-form-wrap { background:var(--white); border-radius:var(--radius-lg); padding:36px; box-shadow:var(--shadow-card); }
+.form-title { font-family:'Playfair Display',serif; font-size:1.4rem; color:var(--cobalt-deep); margin-bottom:8px; }
+.form-subtitle { font-size:0.85rem; color:var(--text-sub); margin-bottom:28px; }
+.form-group { margin-bottom:18px; }
+.form-group label { display:block; font-size:0.8rem; font-weight:600; color:var(--text-main); margin-bottom:7px; letter-spacing:0.02em; }
+.form-group input, .form-group select, .form-group textarea {
+  width:100%; padding:12px 16px; border:1.5px solid rgba(0,180,216,0.18);
+  border-radius:12px; font-family:'DM Sans',sans-serif; font-size:0.9rem;
+  color:var(--text-main); background:var(--off-white); transition:all 0.3s;
+  outline:none;
+}
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+  border-color:var(--sky); background:var(--white);
+  box-shadow:0 0 0 3px rgba(0,180,216,0.12);
+}
+.form-group textarea { height:100px; resize:none; }
+.form-row { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+.form-submit { width:100%; background:var(--gradient-hero); color:var(--white); border:none; padding:14px; border-radius:14px; font-size:1rem; font-weight:600; cursor:pointer; transition:all 0.3s; box-shadow:0 4px 20px rgba(0,119,182,0.35); letter-spacing:0.02em; }
+.form-submit:hover { transform:translateY(-2px); box-shadow:0 10px 32px rgba(0,119,182,0.45); }
+
+/* ===== ASSOCIATED SERVICES ===== */
+.assoc-section { background:var(--cobalt-deep); padding:60px 5%; }
+.assoc-inner { max-width:1100px; margin:0 auto; text-align:center; }
+.assoc-inner h2 { font-family:'Playfair Display',serif; font-size:1.8rem; color:var(--white); margin-bottom:8px; }
+.assoc-inner p { color:rgba(255,255,255,0.6); font-size:0.9rem; margin-bottom:36px; }
+.assoc-cards { display:flex; justify-content:center; flex-wrap:wrap; gap:20px; }
+.assoc-card { background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.12); border-radius:var(--radius); padding:24px 28px; text-align:center; transition:all 0.3s; }
+.assoc-card:hover { background:rgba(255,255,255,0.12); transform:translateY(-4px); }
+.assoc-card i { font-size:1.8rem; color:var(--sky); margin-bottom:10px; display:block; }
+.assoc-card span { color:var(--white); font-weight:600; font-size:0.92rem; }
+
+/* ===== FOOTER ===== */
+footer { background:#011627; padding:48px 5% 24px; }
+.footer-grid { display:grid; grid-template-columns:1.4fr 1fr 1fr; gap:40px; max-width:1100px; margin:0 auto 40px; }
+.footer-brand img { height:48px; margin-bottom:14px; }
+.footer-brand p { font-size:0.83rem; color:rgba(255,255,255,0.5); line-height:1.7; margin-bottom:16px; }
+.footer-socials { display:flex; gap:10px; }
+.social-btn { width:36px; height:36px; background:rgba(255,255,255,0.07); border-radius:10px; display:flex; align-items:center; justify-content:center; color:rgba(255,255,255,0.6); text-decoration:none; transition:all 0.3s; font-size:0.9rem; }
+.social-btn:hover { background:var(--sky); color:var(--white); transform:translateY(-3px); }
+.footer-col h4 { color:var(--white); font-weight:600; font-size:0.9rem; margin-bottom:16px; letter-spacing:0.04em; }
+.footer-col ul { list-style:none; }
+.footer-col ul li { margin-bottom:9px; }
+.footer-col ul li a { color:rgba(255,255,255,0.5); text-decoration:none; font-size:0.83rem; transition:color 0.2s; }
+.footer-col ul li a:hover { color:var(--sky); }
+.footer-bottom { border-top:1px solid rgba(255,255,255,0.08); padding-top:20px; max-width:1100px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; }
+.footer-bottom p { color:rgba(255,255,255,0.35); font-size:0.78rem; }
+.iso-footer { display:flex; align-items:center; gap:6px; color:var(--teal-light); font-size:0.78rem; font-weight:600; }
+
+/* ===== FLOATING BUTTONS ===== */
+.float-btns { position:fixed; bottom:28px; right:24px; z-index:800; display:flex; flex-direction:column; gap:12px; align-items:flex-end; }
+.float-wa {
+  width:54px; height:54px; background:#25D366; border-radius:50%; display:flex;
+  align-items:center; justify-content:center; font-size:1.5rem; color:var(--white);
+  box-shadow:0 4px 20px rgba(37,211,102,0.5); cursor:pointer; text-decoration:none;
+  animation: pulse-wa 2.5s infinite; transition:transform 0.3s;
+}
+.float-wa:hover { transform:scale(1.12); }
+@keyframes pulse-wa { 0%,100%{box-shadow:0 4px 20px rgba(37,211,102,0.5);} 50%{box-shadow:0 4px 32px rgba(37,211,102,0.8), 0 0 0 8px rgba(37,211,102,0.1);} }
+.float-call { width:44px; height:44px; background:var(--gradient-hero); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1rem; color:var(--white); box-shadow:0 4px 16px rgba(0,119,182,0.4); cursor:pointer; text-decoration:none; transition:transform 0.3s; }
+.float-call:hover { transform:scale(1.1); }
+
+/* ===== BOOKING POPUP ===== */
+.booking-popup {
+  position:fixed; top:0; left:0; right:0; bottom:0;
+  background:rgba(2,62,138,0.65); backdrop-filter:blur(10px);
+  z-index:3000; opacity:0; pointer-events:none; transition:opacity 0.4s;
+  display:flex; align-items:center; justify-content:center; padding:20px;
+}
+.booking-popup.active { opacity:1; pointer-events:all; }
+.booking-box {
+  background:var(--white); border-radius:var(--radius-xl); max-width:500px; width:100%;
+  overflow:hidden; transform:scale(0.85) translateY(40px); transition:all 0.45s cubic-bezier(0.23,1,0.32,1);
+  box-shadow:0 40px 100px rgba(0,0,0,0.25);
+}
+.booking-popup.active .booking-box { transform:scale(1) translateY(0); }
+.booking-box-header {
+  background:var(--gradient-hero); padding:28px 32px; position:relative;
+}
+.booking-box-header h2 { font-family:'Playfair Display',serif; color:var(--white); font-size:1.5rem; margin-bottom:4px; }
+.booking-box-header p { color:rgba(255,255,255,0.8); font-size:0.85rem; }
+.booking-close { position:absolute; top:16px; right:16px; background:rgba(255,255,255,0.2); border:none; color:var(--white); width:32px; height:32px; border-radius:50%; cursor:pointer; font-size:1rem; display:flex; align-items:center; justify-content:center; transition:all 0.2s; }
+.booking-close:hover { background:rgba(255,255,255,0.35); }
+.booking-box-body { padding:28px 32px; }
+.booking-success { text-align:center; padding:20px 0; display:none; }
+.booking-success i { font-size:3.5rem; color:var(--teal); margin-bottom:14px; display:block; animation:popIn 0.5s cubic-bezier(0.23,1,0.32,1) both; }
+@keyframes popIn { from{transform:scale(0);opacity:0;} to{transform:scale(1);opacity:1;} }
+.booking-success h3 { font-family:'Playfair Display',serif; font-size:1.3rem; color:var(--cobalt-deep); margin-bottom:8px; }
+.booking-success p { color:var(--text-sub); font-size:0.88rem; }
+
+/* ===== SCROLL REVEAL ===== */
+.reveal { opacity:0; transform:translateY(32px); transition:all 0.7s cubic-bezier(0.23,1,0.32,1); }
+.reveal.visible { opacity:1; transform:translateY(0); }
+.reveal-left { opacity:0; transform:translateX(-32px); transition:all 0.7s cubic-bezier(0.23,1,0.32,1); }
+.reveal-left.visible { opacity:1; transform:translateX(0); }
+.reveal-right { opacity:0; transform:translateX(32px); transition:all 0.7s cubic-bezier(0.23,1,0.32,1); }
+.reveal-right.visible { opacity:1; transform:translateX(0); }
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:1024px) {
+  .services-grid { grid-template-columns:repeat(2,1fr); }
+  .gallery-grid { grid-template-columns:repeat(2,1fr); }
+  .gallery-item.wide { grid-column:span 1; }
+}
+@media(max-width:768px) {
+  .nav-links { display:none; }
+  .hamburger { display:flex; }
+  .hero-grid { grid-template-columns:1fr; }
+  .hero-visual { display:none; }
+  .doctors-grid { grid-template-columns:1fr; }
+  .services-grid { grid-template-columns:1fr 1fr; }
+  .facilities-grid { grid-template-columns:1fr 1fr; }
+  .contact-wrapper { grid-template-columns:1fr; }
+  .footer-grid { grid-template-columns:1fr; gap:28px; }
+  .footer-bottom { flex-direction:column; gap:8px; text-align:center; }
+  .modal-info-grid { grid-template-columns:1fr; }
+  .service-detail-grid { grid-template-columns:1fr; }
+  .form-row { grid-template-columns:1fr; }
+  .gallery-grid { grid-template-columns:1fr 1fr; }
+  .assoc-cards { flex-direction:column; align-items:center; }
+}
+@media(max-width:480px) {
+  section { padding:72px 4%; }
+  .hero-stats { flex-wrap:wrap; gap:16px; }
+  .services-grid { grid-template-columns:1fr; }
+  .facilities-grid { grid-template-columns:1fr; }
+  .gallery-grid { grid-template-columns:1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- CUSTOM CURSOR -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a class="nav-logo" href="#home">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Heartbeat_logo.svg/800px-Heartbeat_logo.svg.png" alt="KB Clinic Logo" style="height:40px;filter:drop-shadow(0 0 6px rgba(0,119,182,0.3))">
+    <div class="nav-logo-text">
+      <span>KB Clinic</span>
+      <span>Towards Excellence In Health Care</span>
+    </div>
+  </a>
+  <div class="nav-links">
+    <a href="#home">Home</a>
+    <a href="#doctors">Doctors</a>
+    <a href="#services">Services</a>
+    <a href="#facilities">Facilities</a>
+    <a href="#reviews">Reviews</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#contact">Contact</a>
+    <a href="#" class="nav-cta" onclick="openBooking(); return false;"><i class="fas fa-calendar-plus"></i> Book Appointment</a>
+  </div>
+  <div class="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#home" onclick="closeMenu()">Home</a>
+  <a href="#doctors" onclick="closeMenu()">Doctors</a>
+  <a href="#services" onclick="closeMenu()">Services</a>
+  <a href="#facilities" onclick="closeMenu()">Facilities</a>
+  <a href="#reviews" onclick="closeMenu()">Reviews</a>
+  <a href="#gallery" onclick="closeMenu()">Gallery</a>
+  <a href="#contact" onclick="closeMenu()">Contact</a>
+  <a href="#" onclick="openBooking(); closeMenu(); return false;" style="background:var(--gradient-hero);color:var(--white);border-radius:12px;margin-top:8px;font-weight:600;text-align:center;">Book Appointment</a>
+</div>
+
+<!-- HERO -->
+<section id="home" style="padding-top:0">
+  <div class="hero-shapes">
+    <div class="hero-shape hs1"></div>
+    <div class="hero-shape hs2"></div>
+    <div class="hero-shape hs3"></div>
+    <div class="hero-shape hs4"></div>
+  </div>
+  <div class="hero-grid">
+    <div class="hero-content">
+      <div>
+        <span class="hero-badge"><i class="fas fa-shield-alt"></i>ISO 9001:2015 Certified</span>
+        <span class="iso-badge"><i class="fas fa-star"></i>Trusted Care</span>
+      </div>
+      <h1 class="hero-title">Towards <span>Excellence</span> In Health Care</h1>
+      <p class="hero-tagline">KB Clinic is a multi-specialty healthcare centre in Karaikal, led by distinguished consultants dedicated to providing world-class diagnosis and compassionate patient care.</p>
+      <div class="hero-stats">
+        <div class="stat-pill">
+          <span class="stat-num">20+</span>
+          <span class="stat-lbl">Years Experience</span>
+        </div>
+        <div class="stat-sep"></div>
+        <div class="stat-pill">
+          <span class="stat-num">10K+</span>
+          <span class="stat-lbl">Happy Patients</span>
+        </div>
+        <div class="stat-sep"></div>
+        <div class="stat-pill">
+          <span class="stat-num">8+</span>
+          <span class="stat-lbl">Specialities</span>
+        </div>
+        <div class="stat-sep"></div>
+        <div class="stat-pill">
+          <span class="stat-num">2</span>
+          <span class="stat-lbl">Expert Doctors</span>
+        </div>
+      </div>
+      <div class="hero-actions">
+        <a href="#" class="btn-primary" onclick="openBooking(); return false;"><i class="fas fa-calendar-check"></i> Book Appointment</a>
+        <a href="#doctors" class="btn-secondary"><i class="fas fa-user-md"></i> Meet Our Doctors</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-card-main">
+        <img src="https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?w=600&q=80" alt="KB Clinic">
+        <div class="hero-card-overlay">
+          <h3>Modern Healthcare Facility</h3>
+          <p>Karaikal's trusted multi-specialty clinic</p>
+        </div>
+      </div>
+      <div class="hero-float-badge">
+        <span class="big">24/7</span>
+        <span class="sm">Emergency<br>Support</span>
+      </div>
+      <div class="hero-float-badge2">
+        <i class="fas fa-home"></i>
+        <span>Home Sample<br>Collection</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-strip">
+  <div class="marquee-inner" id="marqueeInner">
+    <span class="marquee-item"><i class="fas fa-ear-deaf"></i> ENT & Head-Neck Diseases</span>
+    <span class="marquee-item"><i class="fas fa-heartbeat"></i> Heart Diseases</span>
+    <span class="marquee-item"><i class="fas fa-kidney"></i> Kidney & Liver Care</span>
+    <span class="marquee-item"><i class="fas fa-brain"></i> Vertigo & Neurology</span>
+    <span class="marquee-item"><i class="fas fa-syringe"></i> Diabetes & Foot Care</span>
+    <span class="marquee-item"><i class="fas fa-thermometer-half"></i> Hypertension & Thyroid</span>
+    <span class="marquee-item"><i class="fas fa-lungs"></i> Allergy, Asthma & Ulcer</span>
+    <span class="marquee-item"><i class="fas fa-home"></i> Home Sample Collection</span>
+    <span class="marquee-item"><i class="fas fa-certificate"></i> ISO 9001:2015 Certified</span>
+    <!-- Duplicate for seamless loop -->
+    <span class="marquee-item"><i class="fas fa-ear-deaf"></i> ENT & Head-Neck Diseases</span>
+    <span class="marquee-item"><i class="fas fa-heartbeat"></i> Heart Diseases</span>
+    <span class="marquee-item"><i class="fas fa-kidney"></i> Kidney & Liver Care</span>
+    <span class="marquee-item"><i class="fas fa-brain"></i> Vertigo & Neurology</span>
+    <span class="marquee-item"><i class="fas fa-syringe"></i> Diabetes & Foot Care</span>
+    <span class="marquee-item"><i class="fas fa-thermometer-half"></i> Hypertension & Thyroid</span>
+    <span class="marquee-item"><i class="fas fa-lungs"></i> Allergy, Asthma & Ulcer</span>
+    <span class="marquee-item"><i class="fas fa-home"></i> Home Sample Collection</span>
+    <span class="marquee-item"><i class="fas fa-certificate"></i> ISO 9001:2015 Certified</span>
+  </div>
+</div>
+
+<!-- DOCTORS -->
+<section id="doctors">
+  <div class="section-header reveal">
+    <span class="section-tag">Our Specialists</span>
+    <h2 class="section-title">Meet Our Expert Doctors</h2>
+    <p class="section-subtitle">Highly qualified specialists with decades of experience dedicated to your health and well-being.</p>
+    <div class="section-line"></div>
+  </div>
+  <div class="doctors-grid">
+    <div class="doctor-card reveal" onclick="openDoctorModal('ganesh')">
+      <div class="doctor-card-img">
+        <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=500&q=80" alt="Dr. Ganesh Bala">
+        <div class="doctor-card-img-overlay"></div>
+        <span class="doctor-reg">Reg. No. 84617</span>
+      </div>
+      <div class="doctor-card-body">
+        <div class="doctor-name">Prof. Dr. A. Ganesh Bala</div>
+        <div class="doctor-degree">M.S (ENT)., MBA (HCHM).</div>
+        <div class="doctor-spec">Consultant – Ear, Nose, Throat, Head & Neck Diseases</div>
+        <div class="doctor-exp-tags">
+          <span class="exp-tag">ENT Specialist</span>
+          <span class="exp-tag">Head & Neck Surgery</span>
+          <span class="exp-tag">OTO Endoscopy</span>
+        </div>
+        <button class="doctor-expand-btn"><i class="fas fa-user-md"></i> View Full Profile</button>
+      </div>
+    </div>
+    <div class="doctor-card reveal" onclick="openDoctorModal('ramesh')" style="transition-delay:0.15s">
+      <div class="doctor-card-img">
+        <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=500&q=80" alt="Dr. Ramesh Bala">
+        <div class="doctor-card-img-overlay"></div>
+        <span class="doctor-reg">Reg. No. 100034</span>
+      </div>
+      <div class="doctor-card-body">
+        <div class="doctor-name">Dr. A. Ramesh Bala</div>
+        <div class="doctor-degree">M.D (Gen. Medicine)., F.Diab (UK)., FNE., PGDG.</div>
+        <div class="doctor-spec">Consultant – General Physician & Diabetologist<br>Asst. Professor, VMMC & H, Karaikal</div>
+        <div class="doctor-exp-tags">
+          <span class="exp-tag">Diabetologist</span>
+          <span class="exp-tag">General Medicine</span>
+          <span class="exp-tag">Diabetes Foot Care</span>
+        </div>
+        <button class="doctor-expand-btn"><i class="fas fa-user-md"></i> View Full Profile</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="section-header reveal">
+    <span class="section-tag">What We Treat</span>
+    <h2 class="section-title">Our Specialty Services</h2>
+    <p class="section-subtitle">Comprehensive care across a broad range of specialties — tap any service to learn more about how we treat and support you.</p>
+    <div class="section-line"></div>
+  </div>
+  <div class="services-grid" id="servicesGrid"></div>
+</section>
+
+<!-- FACILITIES -->
+<section id="facilities">
+  <div class="section-header reveal">
+    <span class="section-tag">Infrastructure</span>
+    <h2 class="section-title">State-of-the-Art Facilities</h2>
+    <p class="section-subtitle">Advanced diagnostic tools and equipment to ensure accurate results and the best possible care for every patient.</p>
+    <div class="section-line"></div>
+  </div>
+  <div class="facilities-grid" id="facilitiesGrid"></div>
+</section>
+
+<!-- REVIEWS -->
+<section id="reviews">
+  <div class="section-header reveal">
+    <span class="section-tag">Patient Stories</span>
+    <h2 class="section-title">What Our Patients Say</h2>
+    <p class="section-subtitle">Real experiences from real patients — hear how KB Clinic has made a difference in their lives.</p>
+    <div class="section-line"></div>
+  </div>
+  <div class="reviews-track-wrap">
+    <div class="reviews-track" id="reviewsTrack"></div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="section-header reveal">
+    <span class="section-tag">Our Space</span>
+    <h2 class="section-title">Clinic Gallery</h2>
+    <p class="section-subtitle">Take a look inside our modern, welcoming clinic and state-of-the-art facilities.</p>
+    <div class="section-line"></div>
+  </div>
+  <div class="gallery-grid" id="galleryGrid"></div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-header reveal">
+    <span class="section-tag">Reach Us</span>
+    <h2 class="section-title">Get In Touch</h2>
+    <p class="section-subtitle">We're here to help. Book an appointment or send us a message.</p>
+    <div class="section-line"></div>
+  </div>
+  <div class="contact-wrapper">
+    <div class="reveal-left">
+      <div class="contact-info-card">
+        <div class="contact-info-item">
+          <div class="contact-icon-wrap"><i class="fas fa-map-marker-alt"></i></div>
+          <div class="contact-info-text">
+            <h4>Clinic Address</h4>
+            <p>372, Bharathiyar Road, Kovilpathu,<br>Karaikal – 609 602, Tamil Nadu</p>
+          </div>
+        </div>
+        <div class="contact-info-item">
+          <div class="contact-icon-wrap"><i class="fas fa-phone-alt"></i></div>
+          <div class="contact-info-text">
+            <h4>Phone / Mobile</h4>
+            <a href="tel:+918925929922">+91 89259 29922</a><br>
+            <a href="tel:04368224815">04368 224815</a>
+          </div>
+        </div>
+        <div class="contact-info-item">
+          <div class="contact-icon-wrap"><i class="fab fa-whatsapp"></i></div>
+          <div class="contact-info-text">
+            <h4>WhatsApp</h4>
+            <a href="https://wa.me/918925929922" target="_blank">+91 89259 29922</a>
+          </div>
+        </div>
+        <div class="contact-info-item">
+          <div class="contact-icon-wrap"><i class="fas fa-clock"></i></div>
+          <div class="contact-info-text">
+            <h4>Clinic Hours</h4>
+            <p>Mon–Sat: 9:00 AM – 1:00 PM, 5:00 PM – 8:30 PM<br>Sunday: By Appointment Only</p>
+          </div>
+        </div>
+      </div>
+      <div class="map-container">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3921.506!2d79.8317!3d10.9256!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTDCsDU1JzMyLjIiTiA3OcKwNDknNTQuMSJF!5e0!3m2!1sen!2sin!4v1620000000000!5m2!1sen!2sin" allowfullscreen="" loading="lazy"></iframe>
+      </div>
+    </div>
+    <div class="contact-form-wrap reveal-right">
+      <h3 class="form-title">Book an Appointment</h3>
+      <p class="form-subtitle">Fill in the form and our team will get back to you within 24 hours.</p>
+      <div id="contactFormArea">
+        <div class="form-row">
+          <div class="form-group"><label>Full Name *</label><input type="text" id="cf-name" placeholder="Your name"></div>
+          <div class="form-group"><label>Mobile Number *</label><input type="tel" id="cf-phone" placeholder="+91 XXXXX XXXXX"></div>
+        </div>
+        <div class="form-group"><label>Select Doctor</label>
+          <select id="cf-doctor">
+            <option value="">Choose a Doctor</option>
+            <option>Prof. Dr. A. Ganesh Bala – ENT & Head-Neck</option>
+            <option>Dr. A. Ramesh Bala – General Medicine & Diabetology</option>
+          </select>
+        </div>
+        <div class="form-group"><label>Service Required</label>
+          <select id="cf-service">
+            <option value="">Select a Service</option>
+            <option>Ear, Nose, Throat Diseases</option>
+            <option>Head and Neck Diseases</option>
+            <option>Heart Diseases</option>
+            <option>Kidney & Liver Diseases</option>
+            <option>Vertigo & Neurological</option>
+            <option>Diabetes & Foot Diseases</option>
+            <option>Hypertension, Cholesterol & Thyroid</option>
+            <option>Allergy, Asthma & Ulcer</option>
+          </select>
+        </div>
+        <div class="form-group"><label>Preferred Date</label><input type="date" id="cf-date"></div>
+        <div class="form-group"><label>Message (Optional)</label><textarea id="cf-msg" placeholder="Describe your symptoms or query..."></textarea></div>
+        <button class="form-submit" onclick="submitContactForm()"><i class="fas fa-paper-plane"></i>&nbsp; Send Appointment Request</button>
+      </div>
+      <div id="contactSuccess" style="display:none;text-align:center;padding:40px 20px">
+        <i class="fas fa-check-circle" style="font-size:3rem;color:var(--teal);display:block;margin-bottom:14px;animation:popIn 0.5s both"></i>
+        <h3 style="font-family:'Playfair Display',serif;color:var(--cobalt-deep);margin-bottom:8px">Appointment Requested!</h3>
+        <p style="color:var(--text-sub);font-size:0.88rem">We'll contact you on your mobile number to confirm your appointment at KB Clinic.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ASSOCIATED SERVICES -->
+<div class="assoc-section">
+  <div class="assoc-inner">
+    <h2>Associated Services</h2>
+    <p>KB Clinic works alongside these trusted partners to provide comprehensive healthcare solutions.</p>
+    <div class="assoc-cards">
+      <div class="assoc-card"><i class="fas fa-pills"></i><span>Bama Medicals</span></div>
+      <div class="assoc-card"><i class="fas fa-flask"></i><span>Bala Diagnostics</span></div>
+      <div class="assoc-card"><i class="fas fa-headphones-alt"></i><span>A.M. Audiology &<br>Hearing Aid Centre</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+        <div style="font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:var(--white)">KB Clinic</div>
+      </div>
+      <p>Towards Excellence In Health Care. Providing compassionate, quality healthcare to the people of Karaikal since inception. ISO 9001:2015 Certified.</p>
+      <div class="footer-socials">
+        <a href="https://wa.me/918925929922" target="_blank" class="social-btn"><i class="fab fa-whatsapp"></i></a>
+        <a href="#" class="social-btn"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="social-btn"><i class="fab fa-instagram"></i></a>
+        <a href="tel:+918925929922" class="social-btn"><i class="fas fa-phone"></i></a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#doctors">Our Doctors</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#facilities">Facilities</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact Info</h4>
+      <ul>
+        <li><a href="#">372, Bharathiyar Road, Kovilpathu, Karaikal – 609 602</a></li>
+        <li><a href="tel:+918925929922">📱 89259 29922</a></li>
+        <li><a href="tel:04368224815">📞 04368 224815</a></li>
+        <li><a href="#">🕘 Mon–Sat: 9AM–1PM, 5–8:30PM</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 KB Clinic. All rights reserved. 372, Bharathiyar Road, Karaikal.</p>
+    <div class="iso-footer"><i class="fas fa-certificate"></i> ISO 9001:2015 Certified</div>
+  </div>
+</footer>
+
+<!-- FLOATING BUTTONS -->
+<div class="float-btns">
+  <a href="https://wa.me/918925929922?text=Hello%20KB%20Clinic%2C%20I%20would%20like%20to%20book%20an%20appointment." target="_blank" class="float-wa"><i class="fab fa-whatsapp"></i></a>
+  <a href="tel:+918925929922" class="float-call"><i class="fas fa-phone-alt"></i></a>
+</div>
+
+<!-- BOOKING POPUP -->
+<div class="booking-popup" id="bookingPopup">
+  <div class="booking-box">
+    <div class="booking-box-header">
+      <h2>Book Appointment</h2>
+      <p>KB Clinic, Karaikal — Quick & Easy</p>
+      <button class="booking-close" onclick="closeBooking()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="booking-box-body">
+      <div id="bookingFormArea">
+        <div class="form-row">
+          <div class="form-group"><label>Full Name *</label><input type="text" id="bp-name" placeholder="Your name"></div>
+          <div class="form-group"><label>Mobile *</label><input type="tel" id="bp-phone" placeholder="+91 XXXXX"></div>
+        </div>
+        <div class="form-group"><label>Select Doctor</label>
+          <select id="bp-doctor">
+            <option value="">Choose Doctor</option>
+            <option>Prof. Dr. A. Ganesh Bala – ENT</option>
+            <option>Dr. A. Ramesh Bala – General Medicine</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label>Date</label><input type="date" id="bp-date"></div>
+          <div class="form-group"><label>Time Preference</label>
+            <select id="bp-time">
+              <option>Morning (9AM – 1PM)</option>
+              <option>Evening (5PM – 8:30PM)</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group"><label>Reason for Visit</label><input type="text" id="bp-reason" placeholder="e.g. Ear pain, Diabetes checkup..."></div>
+        <button class="form-submit" onclick="submitBooking()"><i class="fas fa-calendar-check"></i>&nbsp; Confirm Appointment</button>
+      </div>
+      <div class="booking-success" id="bookingSuccess">
+        <i class="fas fa-check-circle"></i>
+        <h3>Appointment Confirmed!</h3>
+        <p>Thank you! Our team will call you shortly to confirm your appointment at KB Clinic.<br><br><strong>📞 89259 29922</strong></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DOCTOR MODAL -->
+<div class="modal-overlay" id="doctorModal" onclick="closeDoctorModal(event)">
+  <div class="doctor-modal" id="doctorModalContent"></div>
+</div>
+
+<!-- SERVICE MODAL -->
+<div class="modal-overlay" id="serviceModal" onclick="closeServiceModal(event)">
+  <div class="doctor-modal" id="serviceModalContent"></div>
+</div>
+
+<!-- FACILITY MODAL -->
+<div class="modal-overlay" id="facilityModal" onclick="closeFacilityModal(event)">
+  <div class="doctor-modal" id="facilityModalContent"></div>
+</div>
+
+<script>
+// ===== DATA =====
+const services = [
+  {
+    name:"Ear, Nose & Throat (ENT)",
+    icon:"fas fa-deaf",
+    img:"https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=400&q=80",
+    brief:"Expert diagnosis and treatment for all ENT conditions from infections to complex surgeries.",
+    cause:"ENT disorders can arise from infections, allergies, structural abnormalities, or chronic conditions affecting hearing, breathing, and swallowing.",
+    causes:["Bacterial or viral infections of the ear, nose, or throat","Allergic rhinitis and sinusitis","Deviated nasal septum or nasal polyps","Tonsillitis and adenoid enlargement","Chronic ear infections and hearing loss","Benign or malignant growths in the head-neck region"],
+    treatment:"Our ENT specialist Prof. Dr. A. Ganesh Bala uses advanced endoscopic techniques to diagnose and treat conditions with minimal discomfort. From simple ear wax removal to complex head-neck surgeries, we ensure precise care.",
+    trust:"KB Clinic is equipped with OTO Endoscopy, Nasal Endoscopy, and Video Laryngoscopy — ensuring highly accurate diagnosis. Your hearing health and quality of life are our top priorities.",
+    details:[{h:"Specialist",p:"Prof. Dr. A. Ganesh Bala"},{h:"Procedure Type",p:"Endoscopic / Medical"},{h:"Duration",p:"30–60 min consultation"},{h:"Follow-up",p:"As required"}]
+  },
+  {
+    name:"Head & Neck Diseases",
+    icon:"fas fa-head-side-mask",
+    img:"https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=400&q=80",
+    brief:"Specialized care for tumors, infections, and conditions of the head and neck region.",
+    cause:"Head and neck diseases may range from benign cysts to malignant tumors, and require specialized evaluation.",
+    causes:["Swollen lymph nodes or neck lumps","Salivary gland disorders","Thyroid nodules","Oral cavity lesions","Head and neck cancers","Post-surgical follow-up care"],
+    treatment:"Dr. Ganesh Bala specializes in the comprehensive evaluation of head and neck pathologies. Using video laryngoscopy and imaging, he provides precise diagnoses and personalized treatment plans.",
+    trust:"Early detection is critical. Our specialized equipment enables early-stage identification of serious conditions, improving treatment outcomes significantly.",
+    details:[{h:"Specialist",p:"Prof. Dr. A. Ganesh Bala"},{h:"Approach",p:"Endoscopic evaluation"},{h:"Includes",p:"Biopsy coordination"},{h:"ISO",p:"9001:2015 Certified lab"}]
+  },
+  {
+    name:"Heart Diseases",
+    icon:"fas fa-heartbeat",
+    img:"https://images.unsplash.com/photo-1628595351029-c2bf17511435?w=400&q=80",
+    brief:"Comprehensive cardiac evaluation including ECG, risk assessment, and ongoing cardiac care.",
+    cause:"Heart disease is often silent. Lifestyle factors, genetics, and underlying conditions like hypertension or diabetes significantly increase risk.",
+    causes:["High blood pressure (Hypertension)","Elevated cholesterol levels","Diabetes mellitus","Obesity and sedentary lifestyle","Family history of cardiac disease","Smoking and alcohol use"],
+    treatment:"Dr. A. Ramesh Bala provides thorough cardiac risk assessment, ECG interpretation, and medical management. Timely lifestyle guidance and medication management help prevent serious cardiac events.",
+    trust:"We perform ECG on-site with rapid result reporting. Combined with our laboratory, we offer complete cardiac risk profiling to keep your heart safe.",
+    details:[{h:"Specialist",p:"Dr. A. Ramesh Bala"},{h:"Tests Available",p:"ECG, Lipid Profile"},{h:"Diagnosis Time",p:"Same day results"},{h:"Management",p:"Long-term follow-up"}]
+  },
+  {
+    name:"Kidney & Liver Diseases",
+    icon:"fas fa-lungs",
+    img:"https://images.unsplash.com/photo-1530026405186-ed1f139313f8?w=400&q=80",
+    brief:"Monitoring, diagnosis, and management of kidney and liver health conditions.",
+    cause:"Kidney and liver conditions are often related to diabetes, hypertension, alcohol use, or viral infections and require careful monitoring.",
+    causes:["Chronic kidney disease (CKD)","Diabetic nephropathy","Hypertensive nephropathy","Viral hepatitis (B & C)","Non-alcoholic fatty liver disease (NAFLD)","Medication-induced organ stress"],
+    treatment:"Regular lab monitoring including creatinine, eGFR, liver enzymes, and ultrasound referrals. Dr. Ramesh Bala creates individualized management plans to slow disease progression and protect organ function.",
+    trust:"Our in-house laboratory enables regular monitoring without the need for multiple hospital visits. We believe in proactive care to prevent complications before they arise.",
+    details:[{h:"Specialist",p:"Dr. A. Ramesh Bala"},{h:"Tests",p:"Renal & Liver function"},{h:"Lab",p:"In-house – Bala Diagnostics"},{h:"Home Sample",p:"Available"}]
+  },
+  {
+    name:"Vertigo & Neurological",
+    icon:"fas fa-brain",
+    img:"https://images.unsplash.com/photo-1559757175-5700dde675bc?w=400&q=80",
+    brief:"Expert diagnosis and rehabilitation for balance disorders, vertigo, and neurological symptoms.",
+    cause:"Vertigo and neurological symptoms can severely impact daily life, arising from inner ear disorders or brain conditions.",
+    causes:["Benign paroxysmal positional vertigo (BPPV)","Meniere's disease","Labyrinthitis","Migraine-associated vertigo","Inner ear dysfunction","Neurological causes including vestibular disorders"],
+    treatment:"Prof. Dr. Ganesh Bala specializes in vestibular disorders using specialized audiometric testing and repositioning maneuvers. Accurate diagnosis leads to effective treatment — often resolving vertigo in a single session.",
+    trust:"We use advanced audiometry and vestibular assessment to pinpoint the exact cause of your dizziness. Our patients experience significant relief, often without the need for surgery.",
+    details:[{h:"Specialist",p:"Prof. Dr. A. Ganesh Bala"},{h:"Tests",p:"Audiogram, Vestibular test"},{h:"Procedure",p:"Repositioning maneuver"},{h:"Recovery",p:"Often immediate relief"}]
+  },
+  {
+    name:"Diabetes & Foot Care",
+    icon:"fas fa-syringe",
+    img:"https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=400&q=80",
+    brief:"Expert management of diabetes with specialized diabetic foot care to prevent complications.",
+    cause:"Diabetes is a chronic condition that, if poorly managed, leads to serious complications including foot ulcers, nerve damage, and organ failure.",
+    causes:["Type 1 and Type 2 Diabetes Mellitus","Poor blood sugar control","Peripheral neuropathy","Poor circulation in lower limbs","Foot ulcers and infections","Obesity and unhealthy diet"],
+    treatment:"Dr. A. Ramesh Bala holds a Fellowship in Diabetes from the UK and provides comprehensive diabetes management including blood sugar optimization, insulin titration, and advanced diabetic foot assessment using monofilament testing and Doppler assessment.",
+    trust:"With international fellowship training in diabetic care, Dr. Ramesh Bala brings world-class expertise to Karaikal. Early foot screenings prevent amputations and save lives.",
+    details:[{h:"Specialist",p:"Dr. A. Ramesh Bala"},{h:"Qualification",p:"F.Diab (UK) Fellowship"},{h:"Tests",p:"HbA1c, RBS, Lipid panel"},{h:"Foot Screening",p:"Monofilament & Doppler"}]
+  },
+  {
+    name:"Hypertension, Cholesterol & Thyroid",
+    icon:"fas fa-thermometer-half",
+    img:"https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=400&q=80",
+    brief:"Lifestyle and medical management for common but serious chronic conditions.",
+    cause:"These are among the most common yet dangerous silent conditions — often causing serious damage before symptoms appear.",
+    causes:["High blood pressure with no obvious symptoms","Elevated LDL cholesterol","Hypothyroidism or hyperthyroidism","Thyroid nodules","Metabolic syndrome","Family predisposition"],
+    treatment:"Dr. Ramesh Bala provides evidence-based management using the latest clinical guidelines. Regular monitoring, dietary counseling, and medication management help patients achieve target values and reduce cardiac risk.",
+    trust:"Our on-site lab handles thyroid function tests, lipid profiles, and BP monitoring so you get complete care under one roof, saving time and reducing unnecessary hospital visits.",
+    details:[{h:"Specialist",p:"Dr. A. Ramesh Bala"},{h:"Tests",p:"TSH, T3, T4, Lipid panel"},{h:"Monitoring",p:"Ambulatory BP"},{h:"Diet",p:"Nutritional counseling"}]
+  },
+  {
+    name:"Headache, Allergy, Asthma & Ulcer",
+    icon:"fas fa-head-side-cough",
+    img:"https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?w=400&q=80",
+    brief:"Targeted treatment for allergic, respiratory, and gastrointestinal conditions.",
+    cause:"These conditions are among the most common reasons patients visit a doctor and can significantly impact quality of life when unmanaged.",
+    causes:["Tension and migraine headaches","Allergic rhinitis and skin allergies","Bronchial asthma and COPD","Peptic ulcer disease","Gastroesophageal reflux (GERD)","H. pylori bacterial infection"],
+    treatment:"Dr. Ramesh Bala provides comprehensive evaluation and management of these overlapping conditions, including allergy testing referral, inhaler therapy for asthma, and H. pylori eradication therapy for ulcer disease.",
+    trust:"Many patients suffer for years from undiagnosed allergies or headaches. At KB Clinic, we take a thorough history and systematic approach to find the root cause and provide lasting relief.",
+    details:[{h:"Specialist",p:"Dr. A. Ramesh Bala"},{h:"Allergy Test",p:"Available via referral"},{h:"Asthma",p:"Inhaler & nebulizer therapy"},{h:"Ulcer",p:"H. pylori eradication"}]
+  }
+];
+
+const facilities = [
+  {
+    name:"OTO Endoscopy",
+    icon:"fas fa-eye",
+    img:"https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=400&q=80",
+    desc:"High-resolution visualization of the ear canal and eardrum using a thin fiber-optic camera.",
+    tag:"Diagnostic",
+    steps:["Patient seated comfortably; ear canal gently cleaned","Thin endoscope passed into ear canal painlessly","Real-time HD image projected on screen","Detailed recording for diagnosis and patient education","Treatment planned based on findings"]
+  },
+  {
+    name:"Nasal Endoscopy",
+    icon:"fas fa-wind",
+    img:"https://images.unsplash.com/photo-1585421514738-01798e348b17?w=400&q=80",
+    desc:"Detailed internal examination of the nasal passages and sinuses for accurate diagnosis of chronic nasal conditions.",
+    tag:"Diagnostic",
+    steps:["Nasal decongestant applied to optimize visualization","Flexible endoscope gently introduced through the nostril","Sinuses, septum, and turbinates examined in real-time","Polyps, infection, or structural deformities identified","Biopsy taken if required; treatment recommended"]
+  },
+  {
+    name:"Video Laryngoscopy",
+    icon:"fas fa-video",
+    img:"https://images.unsplash.com/photo-1584515933487-779824d29309?w=400&q=80",
+    desc:"Advanced visualization of the larynx and vocal cords using high-definition video technology.",
+    tag:"Advanced",
+    steps:["Patient throat anaesthetized with local spray","Video laryngoscope gently introduced","Vocal cords and larynx examined in HD","Voice disorders, lesions, or growths identified","Patient can view their own examination on screen"]
+  },
+  {
+    name:"Audiogram",
+    icon:"fas fa-headphones",
+    img:"https://images.unsplash.com/photo-1601493700631-2b16ec4b4716?w=400&q=80",
+    desc:"Comprehensive pure-tone audiometry test to assess hearing levels across all frequencies.",
+    tag:"Hearing",
+    steps:["Patient seated in quiet acoustic environment","Calibrated headphones worn for both ears","Tones played at various frequencies and volumes","Patient signals when they hear each sound","Audiogram chart generated and interpreted by specialist"]
+  },
+  {
+    name:"Hearing Aid Sales & Services",
+    icon:"fas fa-assistive-listening-systems",
+    img:"https://images.unsplash.com/photo-1559757175-5700dde675bc?w=400&q=80",
+    desc:"A.M. Audiology provides fitting, sales, and servicing of advanced digital hearing aids for all ages.",
+    tag:"Rehabilitation",
+    steps:["Hearing loss assessed via audiogram","Appropriate hearing aid type selected","Custom ear mold taken if required","Aid programmed and fitted by audiologist","Follow-up care and servicing provided"]
+  },
+  {
+    name:"ECG & Lab Services",
+    icon:"fas fa-heartbeat",
+    img:"https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=400&q=80",
+    desc:"On-site electrocardiogram (ECG) and comprehensive laboratory services through Bala Diagnostics.",
+    tag:"Diagnostics",
+    steps:["Patient relaxed in supine position for ECG","12-lead electrodes attached to chest, arms, and legs","ECG recorded in under 2 minutes","Immediate interpretation by Dr. Ramesh Bala","Blood tests drawn and processed at Bala Diagnostics for same-day results"]
+  }
+];
+
+const reviews = [
+  { stars:5, text:"Dr. Ganesh Bala completely resolved my ear problem in just two visits. The endoscopy was painless and the diagnosis was spot on. Wonderful clinic!", name:"Karthik R.", date:"2 weeks ago", img:"https://randomuser.me/api/portraits/men/32.jpg" },
+  { stars:5, text:"Dr. Ramesh Bala is an exceptional diabetologist. His UK fellowship training is evident in his thorough approach. My HbA1c has improved dramatically under his care.", name:"Meena Subramanian", date:"1 month ago", img:"https://randomuser.me/api/portraits/women/44.jpg" },
+  { stars:5, text:"The clinic is very clean and well-equipped. I was amazed by the video laryngoscopy — I could see my own vocal cords on screen! Highly recommend.", name:"Pradeep Kumar", date:"3 weeks ago", img:"https://randomuser.me/api/portraits/men/55.jpg" },
+  { stars:5, text:"Best ENT specialist in Karaikal by far. The home sample collection service saved me so much time. Very professional staff.", name:"Anitha V.", date:"2 months ago", img:"https://randomuser.me/api/portraits/women/28.jpg" },
+  { stars:5, text:"Dr. Ramesh Bala diagnosed my thyroid condition that had been missed for years. His attention to detail and patience with patients is truly remarkable.", name:"Suresh Nagarajan", date:"1 month ago", img:"https://randomuser.me/api/portraits/men/67.jpg" },
+  { stars:5, text:"Vertigo was making my life unbearable. After one session with Dr. Ganesh Bala, I was 80% better! The audiogram and repositioning maneuver worked wonders.", name:"Lakshmi D.", date:"3 weeks ago", img:"https://randomuser.me/api/portraits/women/56.jpg" },
+  { stars:5, text:"ISO certified clinic that truly lives up to its standards. Clean, organized, and the doctors take their time to explain everything clearly.", name:"Raj Mohan", date:"5 weeks ago", img:"https://randomuser.me/api/portraits/men/41.jpg" },
+  { stars:5, text:"My father's diabetes foot care has improved tremendously. The detailed screening and regular follow-ups give our whole family peace of mind.", name:"Deepa Krishnaswamy", date:"2 months ago", img:"https://randomuser.me/api/portraits/women/37.jpg" },
+];
+
+const galleryImages = [
+  { src:"https://images.unsplash.com/photo-1586773860418-d37222d8fce3?w=600&q=80", label:"Consultation Room", cls:"tall" },
+  { src:"https://images.unsplash.com/photo-1551076805-e1869033e561?w=600&q=80", label:"Diagnostic Lab", cls:"" },
+  { src:"https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=600&q=80", label:"Patient Care", cls:"" },
+  { src:"https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?w=800&q=80", label:"Modern Facilities", cls:"wide" },
+  { src:"https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=600&q=80", label:"ENT Equipment", cls:"" },
+  { src:"https://images.unsplash.com/photo-1559757175-5700dde675bc?w=600&q=80", label:"Audiology Centre", cls:"" },
+  { src:"https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=600&q=80", label:"ECG Suite", cls:"" },
+  { src:"https://images.unsplash.com/photo-1538108149393-fbbd81895907?w=600&q=80", label:"Reception Area", cls:"tall" },
+];
+
+// ===== RENDER SERVICES =====
+document.getElementById('servicesGrid').innerHTML = services.map((s,i)=>`
+  <div class="service-card reveal" style="transition-delay:${i*0.07}s" onclick="openServiceModal(${i})">
+    <div class="service-card-img">
+      <img src="${s.img}" alt="${s.name}" loading="lazy">
+      <div class="service-icon"><i class="${s.icon}" style="color:var(--cobalt)"></i></div>
+    </div>
+    <div class="service-card-body">
+      <div class="service-name">${s.name}</div>
+      <div class="service-brief">${s.brief}</div>
+      <button class="service-learn-btn">Learn More <i class="fas fa-arrow-right"></i></button>
+    </div>
+  </div>
+`).join('');
+
+// ===== RENDER FACILITIES =====
+document.getElementById('facilitiesGrid').innerHTML = facilities.map((f,i)=>`
+  <div class="facility-card reveal" style="transition-delay:${i*0.1}s" onclick="openFacilityModal(${i})">
+    <div class="facility-card-img">
+      <img src="${f.img}" alt="${f.name}" loading="lazy">
+    </div>
+    <div class="facility-card-body">
+      <div class="facility-icon-row">
+        <div class="facility-icon-wrap"><i class="${f.icon}"></i></div>
+        <div class="facility-name">${f.name}</div>
+      </div>
+      <div class="facility-desc">${f.desc}</div>
+      <span class="facility-tag">${f.tag}</span>
+    </div>
+  </div>
+`).join('');
+
+// ===== RENDER REVIEWS (2x for seamless loop) =====
+const reviewsHTML = [...reviews,...reviews].map(r=>`
+  <div class="review-card">
+    <div class="review-stars">${'★'.repeat(r.stars)}</div>
+    <div class="review-text">"${r.text}"</div>
+    <div class="review-author">
+      <img class="review-avatar" src="${r.img}" alt="${r.name}">
+      <div>
+        <div class="review-name">${r.name}</div>
+        <div class="review-date">${r.date}</div>
+      </div>
+    </div>
+  </div>
+`).join('');
+document.getElementById('reviewsTrack').innerHTML = reviewsHTML;
+
+// ===== RENDER GALLERY =====
+document.getElementById('galleryGrid').innerHTML = galleryImages.map(g=>`
+  <div class="gallery-item ${g.cls} reveal">
+    <img src="${g.src}" alt="${g.label}" loading="lazy">
+    <div class="gallery-item-overlay">
+      <span class="gallery-label"><i class="fas fa-camera" style="margin-right:6px"></i>${g.label}</span>
+    </div>
+  </div>
+`).join('');
+
+// ===== DOCTOR MODALS =====
+const doctorData = {
+  ganesh:{
+    name:"Prof. Dr. A. Ganesh Bala",
+    img:"https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=800&q=80",
+    degree:"M.S (ENT)., MBA (HCHM).",
+    spec:"Consultant – Ear, Nose, Throat, Head & Neck Diseases",
+    reg:"Reg. No. 84617",
+    desc:`Prof. Dr. A. Ganesh Bala is a distinguished ENT surgeon and Head & Neck specialist with an M.S in Otorhinolaryngology and an MBA in Hospital and Clinical Health Management. With extensive clinical experience, he has treated thousands of patients suffering from complex ENT and head-neck conditions.
+
+His expertise spans advanced endoscopic sinus surgeries, microscopic ear surgeries, and the management of head and neck cancers. He is known for his patient-first approach — taking time to explain diagnoses clearly and involving patients in their treatment decisions.
+
+As a leading ENT specialist in the Karaikal region, Dr. Ganesh Bala has brought world-class ear, nose, and throat care to patients who previously had to travel far for quality treatment.`,
+    skills:["ENT Surgery","OTO Endoscopy","Nasal Endoscopy","Video Laryngoscopy","Head & Neck Oncology","Vertigo Rehabilitation","Hearing Assessment","Audiometry","Cochlear Implant Evaluation"],
+    info:[{lbl:"Qualification",val:"M.S (ENT), MBA (HCHM)"},{lbl:"Registration",val:"No. 84617"},{lbl:"Speciality",val:"ENT & Head-Neck"},{lbl:"Languages",val:"Tamil, English"}]
+  },
+  ramesh:{
+    name:"Dr. A. Ramesh Bala",
+    img:"https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=800&q=80",
+    degree:"M.D (Gen. Medicine)., F.Diab (UK)., FNE., PGDG.",
+    spec:"Consultant – General Physician & Diabetologist | Asst. Professor, VMMC & H, Karaikal",
+    reg:"Reg. No. 100034",
+    desc:`Dr. A. Ramesh Bala is a highly accomplished physician and diabetologist with an M.D in General Medicine, a Fellowship in Diabetes from the United Kingdom, and additional qualifications in diabetology and endocrinology.
+
+He serves as an Assistant Professor at VMMC & H (Vinayaka Mission Medical College & Hospital) in Karaikal, combining academic excellence with outstanding clinical practice. His UK fellowship in diabetes has exposed him to cutting-edge international protocols for diabetes management.
+
+Dr. Ramesh Bala specializes in the complete management of diabetes including Type 1, Type 2, gestational diabetes, and diabetic complications such as foot care, retinopathy screening coordination, and nephropathy management. His approach integrates evidence-based medicine with compassionate personalized care — empowering patients to take control of their health.`,
+    skills:["Diabetes Management (Type 1 & 2)","Diabetic Foot Care","Hypertension Management","Thyroid Disorders","Cardiac Risk Assessment","Kidney Disease Monitoring","Liver Disease","Asthma & Allergy","General Medicine","Academic Medicine"],
+    info:[{lbl:"Qualification",val:"MD, F.Diab (UK), FNE, PGDG"},{lbl:"Registration",val:"No. 100034"},{lbl:"Speciality",val:"General Medicine & Diabetology"},{lbl:"Academic Role",val:"Asst. Prof, VMMC & H"}]
+  }
+};
+
+function openDoctorModal(key) {
+  const d = doctorData[key];
+  document.getElementById('doctorModalContent').innerHTML = `
+    <div class="modal-header">
+      <img src="${d.img}" alt="${d.name}">
+      <div class="modal-header-overlay"></div>
+      <div class="modal-header-info">
+        <h2>${d.name}</h2>
+        <p>${d.degree} — ${d.reg}</p>
+      </div>
+      <button class="modal-close" onclick="closeDoctorModal()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-info-grid">
+        ${d.info.map(i=>`<div class="modal-info-item"><div class="lbl">${i.lbl}</div><div class="val">${i.val}</div></div>`).join('')}
+      </div>
+      <div class="modal-section-title"><i class="fas fa-user-md"></i> About Dr. ${d.name.split(' ').pop()}</div>
+      <div class="modal-desc">${d.desc.replace(/\n\n/g,'</p><p style="margin-bottom:14px">').replace(/^/,'<p style="margin-bottom:14px">').replace(/$/,'</p>')}</div>
+      <div class="modal-section-title"><i class="fas fa-star"></i> Areas of Expertise</div>
+      <div class="modal-skills">${d.skills.map(s=>`<span class="modal-skill">${s}</span>`).join('')}</div>
+      <button class="modal-appt-btn" onclick="openBooking()"><i class="fas fa-calendar-check"></i> Book Appointment with Dr. ${d.name.split(' ').pop()}</button>
+    </div>
+  `;
+  document.getElementById('doctorModal').classList.add('active');
+  document.body.style.overflow='hidden';
+}
+function closeDoctorModal(e) {
+  if (!e || e.target.id==='doctorModal') {
+    document.getElementById('doctorModal').classList.remove('active');
+    document.body.style.overflow='';
+  }
+}
+
+// ===== SERVICE MODAL =====
+function openServiceModal(i) {
+  const s = services[i];
+  document.getElementById('serviceModalContent').innerHTML = `
+    <div class="modal-header">
+      <img src="${s.img}" alt="${s.name}">
+      <div class="modal-header-overlay"></div>
+      <div class="modal-header-info">
+        <h2>${s.name}</h2>
+        <p>${s.brief}</p>
+      </div>
+      <button class="modal-close" onclick="closeServiceModal()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="service-modal-body">
+      <div class="service-detail-grid">
+        ${s.details.map(d=>`<div class="service-detail-item"><h4>${d.h}</h4><p>${d.p}</p></div>`).join('')}
+      </div>
+      <div class="modal-section-title"><i class="fas fa-info-circle"></i> What Causes This Condition?</div>
+      <p style="color:var(--text-sub);font-size:0.9rem;margin-bottom:14px;line-height:1.7">${s.cause}</p>
+      <ul class="cause-list">${s.causes.map(c=>`<li>${c}</li>`).join('')}</ul>
+      <div class="trust-box">
+        <h4><i class="fas fa-shield-alt" style="color:var(--teal);margin-right:8px"></i>How We Care For You</h4>
+        <p>${s.treatment}</p>
+      </div>
+      <div class="trust-box" style="border-color:rgba(0,201,167,0.2)">
+        <h4><i class="fas fa-handshake" style="color:var(--cobalt);margin-right:8px"></i>Why Trust KB Clinic?</h4>
+        <p>${s.trust}</p>
+      </div>
+      <button class="modal-appt-btn" onclick="openBooking()"><i class="fas fa-calendar-check"></i> Book an Appointment</button>
+    </div>
+  `;
+  document.getElementById('serviceModal').classList.add('active');
+  document.body.style.overflow='hidden';
+}
+function closeServiceModal(e) {
+  if (!e || e.target.id==='serviceModal') {
+    document.getElementById('serviceModal').classList.remove('active');
+    document.body.style.overflow='';
+  }
+}
+
+// ===== FACILITY MODAL =====
+function openFacilityModal(i) {
+  const f = facilities[i];
+  document.getElementById('facilityModalContent').innerHTML = `
+    <div class="modal-header">
+      <img src="${f.img}" alt="${f.name}">
+      <div class="modal-header-overlay"></div>
+      <div class="modal-header-info">
+        <h2>${f.name}</h2>
+        <p>${f.tag} — KB Clinic, Karaikal</p>
+      </div>
+      <button class="modal-close" onclick="closeFacilityModal()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="facility-modal-body">
+      <div class="trust-box">
+        <h4><i class="fas fa-microscope" style="color:var(--cobalt);margin-right:8px"></i>About This Facility</h4>
+        <p>${f.desc}</p>
+      </div>
+      <div class="facility-procedure">
+        <h4>Step-by-Step Procedure</h4>
+        <ul class="procedure-steps">
+          ${f.steps.map((st,j)=>`<li><span class="step-num">${j+1}</span><span class="step-text">${st}</span></li>`).join('')}
+        </ul>
+      </div>
+      <div class="trust-box" style="border-color:rgba(0,201,167,0.2)">
+        <h4><i class="fas fa-certificate" style="color:var(--teal);margin-right:8px"></i>Our Quality Commitment</h4>
+        <p>All KB Clinic facilities are maintained under ISO 9001:2015 quality standards. Equipment is regularly calibrated and our team is trained to international protocols, ensuring accurate results and your complete safety.</p>
+      </div>
+      <button class="modal-appt-btn" onclick="openBooking()"><i class="fas fa-calendar-check"></i> Book This Service</button>
+    </div>
+  `;
+  document.getElementById('facilityModal').classList.add('active');
+  document.body.style.overflow='hidden';
+}
+function closeFacilityModal(e) {
+  if (!e || e.target.id==='facilityModal') {
+    document.getElementById('facilityModal').classList.remove('active');
+    document.body.style.overflow='';
+  }
+}
+
+// ===== BOOKING POPUP =====
+function openBooking() {
+  document.getElementById('bookingFormArea').style.display='block';
+  document.getElementById('bookingSuccess').style.display='none';
+  document.getElementById('bookingPopup').classList.add('active');
+  document.body.style.overflow='hidden';
+}
+function closeBooking() {
+  document.getElementById('bookingPopup').classList.remove('active');
+  document.body.style.overflow='';
+}
+function submitBooking() {
+  const name=document.getElementById('bp-name').value;
+  const phone=document.getElementById('bp-phone').value;
+  if(!name||!phone){alert('Please enter your name and mobile number.');return;}
+  document.getElementById('bookingFormArea').style.display='none';
+  document.getElementById('bookingSuccess').style.display='block';
+  setTimeout(closeBooking, 4000);
+}
+document.getElementById('bookingPopup').addEventListener('click',function(e){
+  if(e.target===this) closeBooking();
+});
+
+// AUTO POPUP after 5 seconds
+setTimeout(function(){
+  openBooking();
+}, 5000);
+
+// ===== CONTACT FORM =====
+function submitContactForm() {
+  const name=document.getElementById('cf-name').value;
+  const phone=document.getElementById('cf-phone').value;
+  if(!name||!phone){alert('Please enter your name and mobile number.');return;}
+  document.getElementById('contactFormArea').style.display='none';
+  document.getElementById('contactSuccess').style.display='block';
+}
+
+// ===== NAVBAR SCROLL =====
+window.addEventListener('scroll',function(){
+  const nav=document.getElementById('navbar');
+  if(window.scrollY>60) nav.classList.add('scrolled');
+  else nav.classList.remove('scrolled');
+});
+
+// ===== MOBILE MENU =====
+function toggleMenu(){
+  document.getElementById('mobileMenu').classList.toggle('open');
+}
+function closeMenu(){
+  document.getElementById('mobileMenu').classList.remove('open');
+}
+
+// ===== SCROLL REVEAL =====
+const revealEls = document.querySelectorAll('.reveal,.reveal-left,.reveal-right');
+const revealObserver = new IntersectionObserver(function(entries){
+  entries.forEach(function(entry){
+    if(entry.isIntersecting){
+      entry.target.classList.add('visible');
+    }
+  });
+},{threshold:0.12,rootMargin:'0px 0px -40px 0px'});
+revealEls.forEach(el=>revealObserver.observe(el));
+
+// Re-observe dynamically rendered elements after short delay
+setTimeout(function(){
+  const newEls=document.querySelectorAll('.reveal:not(.visible),.reveal-left:not(.visible),.reveal-right:not(.visible)');
+  newEls.forEach(el=>revealObserver.observe(el));
+},200);
+
+// ===== CUSTOM CURSOR (desktop only) =====
+if(window.innerWidth > 768) {
+  const cursor=document.getElementById('cursor');
+  const ring=document.getElementById('cursorRing');
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',function(e){mx=e.clientX;my=e.clientY;cursor.style.left=mx+'px';cursor.style.top=my+'px';});
+  function animRing(){
+    rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;
+    ring.style.left=rx+'px';ring.style.top=ry+'px';
+    requestAnimationFrame(animRing);
+  }
+  animRing();
+  document.querySelectorAll('a,button,.doctor-card,.service-card,.facility-card').forEach(el=>{
+    el.addEventListener('mouseenter',()=>{ring.style.transform='translate(-50%,-50%) scale(1.8)';ring.style.borderColor='var(--teal)';});
+    el.addEventListener('mouseleave',()=>{ring.style.transform='translate(-50%,-50%) scale(1)';ring.style.borderColor='var(--cobalt)';});
+  });
+}
+
+// ===== SMOOTH ANCHOR CLICKS =====
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',function(e){
+    const href=this.getAttribute('href');
+    if(href==='#') return;
+    const target=document.querySelector(href);
+    if(target){e.preventDefault();target.scrollIntoView({behavior:'smooth',block:'start'});}
+  });
+});
+</script>
+</body>
+</html>
