@@ -354,6 +354,18 @@ footer{background:#011627;padding:48px 5% 22px;}
 .svc-di{background:linear-gradient(135deg,rgba(0,87,184,.04),rgba(0,180,166,.04));border:1px solid rgba(0,87,184,.11);border-radius:12px;padding:14px;}
 .svc-di h4{font-size:.7rem;color:var(--teal-d);font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px;}
 .svc-di p{font-size:.83rem;color:var(--sub);line-height:1.55;}
+/* WHEN TO CONSULT BLOCK */
+.when-box{background:linear-gradient(135deg,#fff8e1,#fffde7);border:1.5px solid #FFD54F;border-radius:16px;padding:20px 20px 14px;margin-bottom:20px;position:relative;overflow:hidden;}
+.when-box::before{content:'';position:absolute;top:0;left:0;width:4px;height:100%;background:linear-gradient(180deg,#FFB300,#FF8F00);}
+.when-box-title{display:flex;align-items:center;gap:8px;font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:700;color:#E65100;margin-bottom:14px;}
+.when-box-title i{font-size:1rem;color:#FF8F00;}
+.when-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;}
+.when-item{display:flex;align-items:flex-start;gap:8px;background:rgba(255,255,255,.75);border-radius:9px;padding:8px 10px;border:1px solid rgba(255,179,0,.18);}
+.when-item i{color:#FF8F00;font-size:.75rem;margin-top:3px;flex-shrink:0;}
+.when-item span{font-size:.78rem;color:#4E342E;line-height:1.5;font-weight:500;}
+/* also on service card — preview badge */
+.svc-when-badge{display:inline-flex;align-items:center;gap:4px;background:#FFF3E0;color:#E65100;font-size:.68rem;font-weight:700;padding:3px 9px;border-radius:50px;border:1px solid #FFCC02;margin-bottom:8px;}
+@media(max-width:600px){.when-grid{grid-template-columns:1fr;}}
 
 /* ========== RESPONSIVE ========== */
 @media(max-width:1024px){.svc-grid{grid-template-columns:repeat(2,1fr);}.gal-grid{grid-template-columns:repeat(2,1fr);}.gal-item.wide{grid-column:span 1;}.assoc-grid{grid-template-columns:1fr 1fr;}.ft-grid{grid-template-columns:1fr 1fr;}}
@@ -858,6 +870,7 @@ const SVCs = [
     brief:"Expert endoscopic diagnosis and treatment for all ENT conditions.",
     cause:"Infections, allergies, structural abnormalities or chronic conditions affecting hearing, breathing and swallowing.",
     causes:["Bacterial or viral ear/throat infections","Allergic rhinitis and chronic sinusitis","Deviated nasal septum or nasal polyps","Tonsillitis and adenoid enlargement","Chronic ear infections and progressive hearing loss","Benign or malignant head-neck growths"],
+    when:["Ear pain, itching, discharge or a feeling of blocked ear","Ringing or buzzing sounds in the ear (tinnitus)","Sudden or gradual reduction in hearing","Repeated sneezing, runny nose or nasal congestion lasting more than 2 weeks","Difficulty swallowing or a persistent lump feeling in the throat","Frequent sore throat, tonsil infections or voice change","Noisy breathing or snoring in children or adults","Nosebleeds that recur without obvious cause","Post-nasal drip causing chronic cough"],
     treatment:"Prof. Dr. A. Ganesh Bala uses OTO Endoscopy and Video Laryngoscopy for precise, painless diagnosis. From ear wax removal to complex endoscopic surgeries — expert care with minimal discomfort.",
     trust:"KB Clinic's advanced ENT suite — OTO Endoscopy, Nasal Endoscopy, Video Laryngoscopy — ensures pinpoint diagnosis. You are in the hands of a seasoned M.S (ENT) specialist.",
     details:[{h:"Specialist",p:"Prof. Dr. A. Ganesh Bala"},{h:"Procedure",p:"Endoscopic / Medical"},{h:"Duration",p:"30–60 min consultation"},{h:"Follow-up",p:"As clinically required"}]
@@ -868,6 +881,7 @@ const SVCs = [
     brief:"Specialized care for lumps, tumors and infections of the head and neck.",
     cause:"Head and neck pathologies range from benign cysts to malignant tumors requiring expert evaluation.",
     causes:["Swollen cervical lymph nodes or neck masses","Salivary gland swellings","Thyroid nodules and goitre","Oral cavity lesions","Head and neck cancers (early to advanced)","Post-operative follow-up care"],
+    when:["A new lump or swelling in the neck, jaw, or under the chin that lasts more than 2 weeks","Difficulty opening the mouth fully or chewing food","A sore or ulcer inside the mouth that does not heal in 3 weeks","Persistent hoarseness or voice change lasting more than 3 weeks","One-sided facial swelling or pain near the jaw or ear","Unexplained weight loss combined with a neck lump","Swallowing difficulty that is worsening over time","Enlarged thyroid gland (goitre) or nodule noticed in the neck"],
     treatment:"Using Video Laryngoscopy and clinical expertise, Dr. Ganesh Bala delivers a thorough evaluation with detailed diagnosis and individualized treatment plans.",
     trust:"Early detection saves lives. KB Clinic's on-site endoscopic imaging enables prompt identification of critical pathologies, giving you the best possible outcome.",
     details:[{h:"Specialist",p:"Prof. Dr. A. Ganesh Bala"},{h:"Approach",p:"Endoscopic + clinical"},{h:"Biopsy",p:"Coordinated same visit"},{h:"ISO",p:"9001:2015 Certified"}]
@@ -878,6 +892,7 @@ const SVCs = [
     brief:"ECG, cardiac risk profiling and evidence-based medical management.",
     cause:"Heart disease is often silent — driven by hypertension, diabetes, high cholesterol and lifestyle factors.",
     causes:["High blood pressure (Hypertension)","Elevated LDL cholesterol and triglycerides","Uncontrolled diabetes mellitus","Sedentary lifestyle and obesity","Strong family history of cardiac disease","Smoking and chronic stress"],
+    when:["Chest pain, tightness, pressure or discomfort — especially during activity","Shortness of breath on mild exertion or while lying flat","Palpitations — feeling your heart racing, skipping, or pounding","Dizziness, lightheadedness or unexplained fainting spells","Swelling in the feet, ankles or legs without injury","Persistent fatigue or weakness not explained by other causes","Blood pressure consistently above 140/90 mmHg","Family history of heart attack or stroke before age 60"],
     treatment:"Dr. A. Ramesh Bala performs on-site 12-lead ECG and comprehensive cardiac risk assessment. Medication management, lifestyle modification, and specialist referral when needed.",
     trust:"Same-day ECG results interpreted directly by the doctor. Lipid and blood sugar profiling available at Bala Diagnostics on-site. You get complete cardiac care without multiple hospital visits.",
     details:[{h:"Specialist",p:"Dr. A. Ramesh Bala"},{h:"Tests",p:"ECG, Lipid profile"},{h:"Results",p:"Same day"},{h:"Management",p:"Long-term follow-up"}]
@@ -888,6 +903,7 @@ const SVCs = [
     brief:"Regular monitoring and clinical management of kidney and liver health.",
     cause:"Kidney and liver diseases are commonly linked to diabetes, hypertension, viral hepatitis, and medication overuse.",
     causes:["Chronic kidney disease (CKD) from diabetes or hypertension","Diabetic nephropathy","Viral hepatitis B and C","Non-alcoholic fatty liver disease (NAFLD)","Medication-induced organ stress","Autoimmune liver conditions"],
+    when:["Swelling of the face, feet or ankles (oedema) — a key kidney warning sign","Reduced urine output or change in urine colour (dark, frothy or blood-tinged)","Persistent itching all over the body without skin cause","Yellowing of the skin or eyes (jaundice) — a liver alarm sign","Upper right abdominal pain or discomfort after fatty meals","Unexplained nausea, vomiting or loss of appetite for weeks","Known diabetes or hypertension patient — annual kidney/liver check is essential","Feeling weak, dizzy or anaemic without a clear reason"],
     treatment:"Regular renal function, liver enzyme testing, and eGFR monitoring via Bala Diagnostics. Dr. Ramesh Bala creates personalized plans to slow progression and protect organ function.",
     trust:"Proactive monitoring is the key to preventing dialysis and liver failure. Our in-house lab enables frequent, affordable testing — catching problems before they worsen.",
     details:[{h:"Specialist",p:"Dr. A. Ramesh Bala"},{h:"Tests",p:"RFT, LFT, eGFR"},{h:"Lab",p:"Bala Diagnostics on-site"},{h:"Home Sample",p:"Available — call us"}]
@@ -898,6 +914,7 @@ const SVCs = [
     brief:"Audiometric assessment and vestibular rehabilitation for balance disorders.",
     cause:"Vertigo can originate from the inner ear or brain and severely disrupts daily life and safety.",
     causes:["BPPV (Benign Paroxysmal Positional Vertigo)","Meniere's disease","Vestibular neuritis / Labyrinthitis","Migraine-associated vertigo","Bilateral vestibular weakness","Central vestibular disorders"],
+    when:["Sudden spinning sensation (the room seems to spin around you)","Dizziness triggered by turning over in bed, looking up, or bending down","Feeling unsteady while walking or frequently losing balance","Nausea or vomiting that accompanies dizziness episodes","Ringing in one or both ears combined with dizziness (Meniere's disease)","Fullness or pressure in the ear along with hearing fluctuation","Recurrent falls, especially in elderly patients — balance assessment needed","Headache-associated vertigo (vestibular migraine)"],
     treatment:"Prof. Dr. Ganesh Bala uses advanced audiometry and specific repositioning maneuvers (Epley, Semont) to resolve BPPV — often in a single visit. Medication and rehabilitation tailored for each patient.",
     trust:"Over 80% of BPPV patients experience significant relief after one session. Our audiological assessment tools ensure an accurate diagnosis before treatment begins.",
     details:[{h:"Specialist",p:"Prof. Dr. A. Ganesh Bala"},{h:"Tests",p:"Audiogram, Vestibular Rx"},{h:"Procedure",p:"Repositioning maneuver"},{h:"Recovery",p:"Often immediate relief"}]
@@ -908,6 +925,7 @@ const SVCs = [
     brief:"International-standard diabetes management with specialist diabetic foot screening.",
     cause:"Diabetes is a progressive disease — without proper management, it silently damages kidneys, eyes, nerves, and feet.",
     causes:["Type 1 and Type 2 Diabetes Mellitus","Uncontrolled blood glucose levels","Peripheral neuropathy (nerve damage in feet)","Poor foot circulation (peripheral vascular disease)","Diabetic foot ulcers and infections","Obesity and sedentary lifestyle"],
+    when:["Increased thirst, frequent urination or unexplained weight loss — classic diabetes symptoms","Known diabetic: blood sugar not meeting targets despite current medication","Numbness, tingling or burning sensation in hands or feet (neuropathy)","Any wound or sore on the foot that is slow to heal","Darkening of skin in neck folds or armpits (Acanthosis nigricans — pre-diabetes sign)","Family history of diabetes with BMI above normal — get tested","HbA1c above 7% — time for a specialist review and regimen change","Cold feet, absent pulses or discoloured toes — vascular check needed immediately"],
     treatment:"Dr. A. Ramesh Bala (F.Diab, UK) provides HbA1c-targeted management, insulin titration, and detailed diabetic foot screening including monofilament testing, ABI assessment, and ulcer wound care.",
     trust:"With a Fellowship in Diabetes from the United Kingdom, Dr. Ramesh Bala brings globally validated protocols to Karaikal. Catching foot problems early prevents amputations.",
     details:[{h:"Specialist",p:"Dr. A. Ramesh Bala"},{h:"Qualification",p:"F.Diab (UK)"},{h:"Tests",p:"HbA1c, RBS, Foot ABI"},{h:"Foot Screening",p:"Monofilament + Doppler"}]
@@ -918,6 +936,7 @@ const SVCs = [
     brief:"Evidence-based management of the most common chronic lifestyle diseases.",
     cause:"Silent killers — hypertension, high cholesterol and thyroid disorders cause irreversible damage before symptoms appear.",
     causes:["Essential hypertension (no obvious cause)","Secondary hypertension from kidney or hormonal disease","Elevated LDL and low HDL cholesterol","Hypothyroidism — weight gain, fatigue, cold intolerance","Hyperthyroidism — palpitations, weight loss, anxiety","Thyroid nodules requiring surveillance"],
+    when:["Blood pressure reading above 140/90 mmHg on two separate occasions","Persistent headache at the back of the neck, especially in the morning","Unexplained weight gain, constipation, dry skin or always feeling cold (hypothyroidism)","Weight loss despite good appetite, trembling hands or racing heart (hyperthyroidism)","A visible or palpable swelling at the front of the neck (thyroid goitre)","Cholesterol not checked in the last year — especially if over age 35 or diabetic","Dizziness, blurred vision or nosebleed — may signal dangerously high BP","Fatigue, brain fog, or hair thinning — could be thyroid-related"],
     treatment:"Dr. Ramesh Bala applies latest international guidelines (JNC, AHA, ADA). Regular ambulatory blood pressure monitoring, lipid panel optimization, and precise thyroid hormone replacement.",
     trust:"Our in-house Bala Diagnostics lab runs TSH, T3, T4, and lipid panels with rapid turnaround. All results reviewed by the doctor in the same sitting — saving you time and worry.",
     details:[{h:"Specialist",p:"Dr. A. Ramesh Bala"},{h:"Tests",p:"TSH, T3, T4, Lipid panel"},{h:"BP Monitoring",p:"Ambulatory assessment"},{h:"Diet Advice",p:"Nutritional counselling"}]
@@ -928,6 +947,7 @@ const SVCs = [
     brief:"Root-cause diagnosis and targeted treatment for common but debilitating conditions.",
     cause:"These highly prevalent conditions significantly impact quality of life and are frequently under-diagnosed.",
     causes:["Tension-type and migraine headaches","Allergic rhinitis, urticaria, and food allergies","Bronchial asthma and allergic bronchitis","Peptic ulcer and gastritis (often H. pylori)","Gastroesophageal reflux disease (GERD)","Drug-induced or stress-related gastric problems"],
+    when:["Headache occurring more than 3 times a week or lasting more than a day","Headache accompanied by nausea, vomiting or sensitivity to light","Sneezing fits, watery eyes or runny nose triggered by specific environments or foods","Wheezing, chest tightness or coughing attacks — especially at night or after exercise","Burning pain in the stomach that is better or worse after eating","Repeated heartburn, acid taste in the mouth, or regurgitation after meals","Skin rashes, hives or itching that appear suddenly without obvious cause","Chronic cough that has persisted for more than 3 weeks without cold or fever"],
     treatment:"Dr. Ramesh Bala conducts a systematic, evidence-based workup to identify the root cause. Inhaler therapy for asthma, antihistamines for allergy, H. pylori eradication for ulcers, and migraine prophylaxis.",
     trust:"Many patients suffer for years with unresolved headaches or allergy. Our thorough clinical approach finds the exact cause and delivers lasting relief rather than short-term symptomatic treatment.",
     details:[{h:"Specialist",p:"Dr. A. Ramesh Bala"},{h:"Allergy",p:"Skin test referral available"},{h:"Asthma",p:"Inhaler + nebulizer Rx"},{h:"Ulcer",p:"H. pylori eradication"}]
